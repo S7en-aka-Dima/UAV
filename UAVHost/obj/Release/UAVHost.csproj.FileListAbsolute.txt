@@ -1,0 +1,17 @@
+C:\Users\Володя\source\repos\UAVHost\bin\Release\UAVHost.exe.config
+C:\Users\Володя\source\repos\UAVHost\bin\Release\UAVHost.exe
+C:\Users\Володя\source\repos\UAVHost\bin\Release\UAVHost.pdb
+C:\Users\Володя\source\repos\UAVHost\bin\Release\UAVServer.dll
+C:\Users\Володя\source\repos\UAVHost\bin\Release\UAVServer.pdb
+C:\Users\Володя\source\repos\UAVHost\bin\Release\UAVServer.dll.config
+C:\Users\Володя\source\repos\UAVHost\obj\Release\UAVHost.csprojAssemblyReference.cache
+C:\Users\Володя\source\repos\UAVHost\obj\Release\UAVHost.csproj.CopyComplete
+C:\Users\Володя\source\repos\UAVHost\obj\Release\UAVHost.exe
+C:\Users\Володя\source\repos\UAVHost\obj\Release\UAVHost.pdb
+C:\Users\Володя\source\repos\UAVHost\obj\Release\UAVHost.csproj.CoreCompileInputs.cache
+C:\Users\Володя\source\repos\UAVHost\bin\Release\Control Generation Module.dll
+C:\Users\Володя\source\repos\UAVHost\bin\Release\UAV_Settings.dll
+C:\Users\Володя\source\repos\UAVHost\bin\Release\ViewModels.dll
+C:\Users\Володя\source\repos\UAVHost\bin\Release\Control Generation Module.pdb
+C:\Users\Володя\source\repos\UAVHost\bin\Release\UAV_Settings.pdb
+C:\Users\Володя\source\repos\UAVHost\bin\Release\ViewModels.pdb

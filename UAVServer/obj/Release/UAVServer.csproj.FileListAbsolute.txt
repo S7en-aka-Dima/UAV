@@ -1,0 +1,18 @@
+C:\Users\Володя\source\repos\UAVServer\bin\Release\UAVServer.dll.config
+C:\Users\Володя\source\repos\UAVServer\bin\Release\UAVServer.dll
+C:\Users\Володя\source\repos\UAVServer\bin\Release\UAVServer.pdb
+C:\Users\Володя\source\repos\UAVServer\bin\Release\System.ServiceModel.Duplex.dll
+C:\Users\Володя\source\repos\UAVServer\bin\Release\System.ServiceModel.Primitives.dll
+C:\Users\Володя\source\repos\UAVServer\bin\Release\System.ServiceModel.Duplex.pdb
+C:\Users\Володя\source\repos\UAVServer\bin\Release\System.ServiceModel.Primitives.pdb
+C:\Users\Володя\source\repos\UAVServer\obj\Release\UAVServer.csproj.CopyComplete
+C:\Users\Володя\source\repos\UAVServer\obj\Release\UAVServer.dll
+C:\Users\Володя\source\repos\UAVServer\obj\Release\UAVServer.pdb
+C:\Users\Володя\source\repos\UAVServer\bin\Release\Control Generation Module.dll
+C:\Users\Володя\source\repos\UAVServer\bin\Release\UAV_Settings.dll
+C:\Users\Володя\source\repos\UAVServer\bin\Release\ViewModels.dll
+C:\Users\Володя\source\repos\UAVServer\bin\Release\Control Generation Module.pdb
+C:\Users\Володя\source\repos\UAVServer\bin\Release\UAV_Settings.pdb
+C:\Users\Володя\source\repos\UAVServer\bin\Release\ViewModels.pdb
+C:\Users\Володя\source\repos\UAVServer\obj\Release\UAVServer.csprojAssemblyReference.cache
+C:\Users\Володя\source\repos\UAVServer\obj\Release\UAVServer.csproj.CoreCompileInputs.cache
