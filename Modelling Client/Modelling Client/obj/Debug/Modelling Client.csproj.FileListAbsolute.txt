@@ -1,0 +1,29 @@
+F:\Мои приложения\UAV\Modelling Client\bin\Debug\Modelling Client.exe.config
+F:\Мои приложения\UAV\Modelling Client\bin\Debug\Modelling Client.exe
+F:\Мои приложения\UAV\Modelling Client\bin\Debug\Modelling Client.pdb
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\Modelling Client.csprojAssemblyReference.cache
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\Views\MainWindow.g.cs
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\App.g.cs
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\Modelling Client_MarkupCompile.cache
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\Modelling Client_MarkupCompile.lref
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\Views\MainWindow.baml
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\Modelling Client.g.resources
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\Modelling_Client.Properties.Resources.resources
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\Modelling Client.csproj.GenerateResource.cache
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\Modelling Client.csproj.CoreCompileInputs.cache
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\Modelling Client.exe
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\Modelling Client.pdb
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\GeneratedInternalTypeHelper.g.cs
+F:\Мои приложения\UAV\Modelling Client\bin\Debug\DevExpress.Mvvm.dll
+F:\Мои приложения\UAV\Modelling Client\bin\Debug\DevExpress.Mvvm.UI.dll
+F:\Мои приложения\UAV\Modelling Client\bin\Debug\DevExpress.Mvvm.pdb
+F:\Мои приложения\UAV\Modelling Client\bin\Debug\DevExpress.Mvvm.UI.pdb
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\Modelling Client.csproj.CopyComplete
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\App.baml
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\Словари WPF\SettingsDictionary.baml
+F:\Мои приложения\UAV\Modelling Client\bin\Debug\Microsoft.Expression.Interactions.dll
+F:\Мои приложения\UAV\Modelling Client\bin\Debug\System.Windows.Interactivity.dll
+F:\Мои приложения\UAV\Modelling Client\bin\Debug\Microsoft.Expression.Interactions.xml
+F:\Мои приложения\UAV\Modelling Client\bin\Debug\System.Windows.Interactivity.xml
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\Views\PrimaryRadar.g.cs
+F:\Мои приложения\UAV\Modelling Client\obj\Debug\Views\PrimaryRadar.baml
