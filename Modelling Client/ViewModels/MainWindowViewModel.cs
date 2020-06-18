@@ -88,7 +88,7 @@ namespace Modelling_Client.ViewModels
         {
             primaryRadar = new PrimaryRadar();
             primaryRadar.Show();
-            primaryRadar.DisplayPolygonGrid();
+            primaryRadar.DisplayRadarGrid();
             modelling.Simulate = true;
         },
             () => primaryRadar == null);

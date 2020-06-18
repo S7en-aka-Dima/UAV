@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Modelling_Client.ViewModels;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,24 +23,25 @@ namespace Modelling_Client.Views
     /// </summary>
     public partial class PrimaryRadar : Window
     {
-        public double Scale = 1;
+        public int ScaleIndex = 4;
         public double ViewPointX = 0;
         public double ViewPointY = 0;
         List<Line> RadarGrid = new List<Line>();
+        List<Double> Scales = new List<Double>();
 
-        double X0
+        public double X0
         {
-            get => Math.Round(Radar.ActualWidth / 2 - ViewPointX * Scale); // Add check for null obj
+            get => Math.Round(Radar.ActualWidth / 2 - ViewPointX * Scales[ScaleIndex]); // Add check for null obj
         }
-        double Y0
+        public double Y0
         {
-            get => Math.Round(Radar.ActualHeight / 2 + ViewPointY * Scale);
+            get => Math.Round(Radar.ActualHeight / 2 + ViewPointY * Scales[ScaleIndex]);
         }
 
         public PrimaryRadar()
         {
             InitializeComponent();
-            //DisplayPolygonGrid();
+            ScalesAdd();
         }
 
         private void DisplayGridLine(Line line)
@@ -51,20 +54,43 @@ namespace Modelling_Client.Views
                 }
         }
 
-        public void DisplayPolygonGrid()
+        private void ScalesAdd()
+        {
+            Scales.Add(0.1);
+            Scales.Add(0.2);
+            Scales.Add(0.35);
+            Scales.Add(0.5);
+            Scales.Add(1);
+            Scales.Add(2);
+            Scales.Add(3.5);
+            Scales.Add(5);
+            Scales.Add(10);
+        }
+
+        public void DisplayRadarGrid()
         {
             double centerX = X0;
             double centerY = Y0;
-            int step = (int)Math.Round(50 * Scale);
-            if (Scale == 0.2)
+            int step = (int)Math.Round(50 * Scales[ScaleIndex]);
+            if (Scales[ScaleIndex] == 0.2)
                 step = 50 * 2;
-            if (Scale == 0.1)
+            if (Scales[ScaleIndex] == 0.1)
                 step = 50 * 1;
 
+            foreach (UIElement obj in RadarGrid)
+            {
+                Radar.Children.Remove(obj);
+            }
+            RadarGrid.Clear();
+
             Brush color = Brushes.Black;
-            int axiesThickness = 6;
+            int axiesThickness = 3;
 
             // Вертикальные линии
+            // упростить код для снижения памяти
+            // зная актуальные, размеры окна делим их на два и делим на шаг ==> узнаём количество помещающихся линий
+            // запускаем цикл (пока i < крличества помещающихся линий) подставляем i в формулу с x ==> (i * x)
+            // отрисовываем по две линии  (с противоположными положениями от оси)
             var line = new Line() { X1 = centerX, X2 = centerX, Y1 = 0, Y2 = Radar.ActualHeight, Stroke = Brushes.Black, StrokeThickness = axiesThickness };
             DisplayGridLine(line);
             for (double x = centerX + step; x < Radar.ActualWidth; x += step)
@@ -91,6 +117,43 @@ namespace Modelling_Client.Views
                 line = new Line() { X1 = 0, X2 = Radar.ActualWidth, Y1 = y, Y2 = y, Stroke = Brushes.Black };
                 DisplayGridLine(line);
             }
+        }
+
+        private void RadarSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            DisplayRadarGrid();
+        }
+
+        // добавить блок для масштабирования, обработка колёсика мышка.
+        // Масштабирование на колёсико
+
+        private void RadarMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            int sign = Math.Sign(e.Delta);
+
+            if (sign > 0 && ScaleIndex + 1 < Scales.Count)
+            {
+                ScaleIndex = ScaleIndex + 1;
+                DisplayRadarGrid();
+            }
+
+            else if (sign < 0 && ScaleIndex - 1 >= 0)
+            {
+                ScaleIndex = ScaleIndex - 1;
+                DisplayRadarGrid();
+            }
+        }
+
+        // добавить передвижение камеры
+        private void RadarMouseFocusRadar(object sender, MouseButtonEventArgs e)
+        {
+            if (e.Handled == true)
+            {
+                Point MoveRadar = Mouse.GetPosition(Radar);
+                ViewPointY = ViewPointY + MoveRadar.X;
+                ViewPointY = ViewPointY + MoveRadar.Y;
+                DisplayRadarGrid();
+            };
         }
     }
 }

@@ -14,14 +14,15 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
-        <viewmodels:PrimaryRadarViewModel/>
+        <viewmodels:MainWindowViewModel/>
     </Window.DataContext>
 
     <Grid>
         <Canvas x:Name="Radar"
                 Background="LightGray"
                 ClipToBounds="True" 
-                RenderTransformOrigin="0.5,0.5">
+                RenderTransformOrigin="0.5,0.5"
+                SizeChanged="RadarSizeChanged" MouseWheel="RadarMouseWheel" MouseLeftButtonDown="RadarMouseFocusRadar">
         </Canvas>
     </Grid>
 </Window>
