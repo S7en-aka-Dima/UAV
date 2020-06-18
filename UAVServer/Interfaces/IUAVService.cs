@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Modelling_Client.Models;
+
+using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 
@@ -27,17 +29,17 @@ namespace UAVServer
         /// Передает итерации не пренадлежащие клиенту
         /// </summary>
         /// <param name="id">Уникальный номер клиента</param>
-        /// <returns>возвращает список <list type="List<TransportClass>"/></returns>
+        /// <returns>возвращает список <list type="List<Iteration>"/></returns>
         [OperationContract]
-        List<TransportClass> GetData(int id);
+        List<Iteration> GetData(int id);
 
         [Obsolete("Не рекомендуется использовать из-за возможной неполноты данных, дождитесь ответа сервера", true)]
         /// <summary>
         /// Передает все данные последней итерации клиенту
         /// </summary>
-        /// <returns>возвращает список <list type="List<TransportClass>"/></returns>
+        /// <returns>возвращает список <list type="List<Iteration>"/></returns>
         [OperationContract]
-        List<TransportClass> GetAllData();
+        List<Iteration> GetAllData();
 
         /// <summary>
         /// Передаёт данные текущей итерации на сервер для обмена 
@@ -45,7 +47,7 @@ namespace UAVServer
         /// <param name="uav">Расширенный класс содержищий основной класс UAVBase/>
         /// <param name="id"></param>
         [OperationContract(IsOneWay = true)]
-        void SendValues(TransportClass uav, int id);
+        void SendValues(Iteration uav, int id);
 
         [OperationContract(IsOneWay = true)]
         void SendValues1(string n);
@@ -74,11 +76,11 @@ namespace UAVServer
     public interface IServiceCallBack
     {
         /// <summary>
-        /// Возвращает клиенту список типа Dictionary<int, TransportClass>, где первый столбец - id клиента
+        /// Возвращает клиенту список типа Dictionary<int, Iteration>, где первый столбец - id клиента
         /// </summary>
         /// <param name="data"></param>
         [OperationContract(IsOneWay = true)]
-        void SendValuesCallBack(Dictionary<int, TransportClass> data);
+        void SendValuesCallBack(Dictionary<int, Iteration> data);
 
         [OperationContract(IsOneWay = true)]
         void SendValuesCallBack1(string srt);

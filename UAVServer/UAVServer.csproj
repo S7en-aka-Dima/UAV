@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IdentityModel" />
@@ -51,21 +52,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IUAVService.cs" />
+    <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\Перечисления\DangerLevel.cs" />
+    <Compile Include="Interfaces\IGPS.cs" />
+    <Compile Include="Models\Iteration.cs" />
+    <Compile Include="Interfaces\IUAVService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\RouteSegment.cs" />
     <Compile Include="TransportClass.cs" />
-    <Compile Include="UAVService.cs" />
-    <Compile Include="UAVUser.cs" />
+    <Compile Include="Models\UAVBase.cs" />
+    <Compile Include="Models\UAVService.cs" />
+    <Compile Include="Models\UAVSettings.cs" />
+    <Compile Include="Models\UAVUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="F:\Мои приложения\БПЛА\!!! Исходники !!!\Control Generation Module\Control Generation Module.csproj">
-      <Project>{76818F01-BB37-4F0C-8EF1-8D635BD5D97F}</Project>
-      <Name>Control Generation Module</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

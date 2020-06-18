@@ -7,13 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UAVServer", "UAVServer.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UAVHost", "..\UAVHost\UAVHost.csproj", "{A48F434D-22AB-4B17-8BCB-9AF47DC35FFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Control Generation Module", "F:\Мои приложения\БПЛА\!!! Исходники !!!\Control Generation Module\Control Generation Module.csproj", "{76818F01-BB37-4F0C-8EF1-8D635BD5D97F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UAV_Settings", "F:\Мои приложения\БПЛА\!!! Исходники !!!\UAV_Settings\UAV_Settings.csproj", "{D1B1BA7D-8F9F-4A20-B1C0-C15501BDE2C7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModels", "F:\Мои приложения\БПЛА\!!! Исходники !!!\ViewModels\ViewModels.csproj", "{D02D252F-82D8-45F2-A5A9-1C6D969F173F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestKlientWPF", "..\..\TestKlientWPF\TestKlientWPF.csproj", "{A5458CAD-6C50-4B90-8910-EFDFD16B4322}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestKlientWPF", "C:\Users\Володя\source\repos\TestKlientWPF\TestKlientWPF.csproj", "{A5458CAD-6C50-4B90-8910-EFDFD16B4322}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,18 +23,6 @@ Global
 		{A48F434D-22AB-4B17-8BCB-9AF47DC35FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A48F434D-22AB-4B17-8BCB-9AF47DC35FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A48F434D-22AB-4B17-8BCB-9AF47DC35FFB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76818F01-BB37-4F0C-8EF1-8D635BD5D97F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76818F01-BB37-4F0C-8EF1-8D635BD5D97F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76818F01-BB37-4F0C-8EF1-8D635BD5D97F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76818F01-BB37-4F0C-8EF1-8D635BD5D97F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D1B1BA7D-8F9F-4A20-B1C0-C15501BDE2C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D1B1BA7D-8F9F-4A20-B1C0-C15501BDE2C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D1B1BA7D-8F9F-4A20-B1C0-C15501BDE2C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D1B1BA7D-8F9F-4A20-B1C0-C15501BDE2C7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D02D252F-82D8-45F2-A5A9-1C6D969F173F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D02D252F-82D8-45F2-A5A9-1C6D969F173F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D02D252F-82D8-45F2-A5A9-1C6D969F173F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D02D252F-82D8-45F2-A5A9-1C6D969F173F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A5458CAD-6C50-4B90-8910-EFDFD16B4322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A5458CAD-6C50-4B90-8910-EFDFD16B4322}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5458CAD-6C50-4B90-8910-EFDFD16B4322}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -34,3 +34,15 @@ C:\Users\Володя\source\repos\UAV\UAVServer\obj\Debug\UAVServer.csproj.Core
 C:\Users\Володя\source\repos\UAV\UAVServer\obj\Debug\UAVServer.csproj.CopyComplete
 C:\Users\Володя\source\repos\UAV\UAVServer\obj\Debug\UAVServer.dll
 C:\Users\Володя\source\repos\UAV\UAVServer\obj\Debug\UAVServer.pdb
+F:\Мои приложения\UAV\UAVServer\obj\Debug\UAVServer.csprojAssemblyReference.cache
+F:\Мои приложения\UAV\UAVServer\obj\Debug\UAVServer.csproj.CoreCompileInputs.cache
+F:\Мои приложения\UAV\UAVServer\obj\Debug\UAVServer.dll
+F:\Мои приложения\UAV\UAVServer\obj\Debug\UAVServer.pdb
+F:\Мои приложения\UAV\UAVServer\bin\Debug\UAVServer.dll.config
+F:\Мои приложения\UAV\UAVServer\bin\Debug\UAVServer.dll
+F:\Мои приложения\UAV\UAVServer\bin\Debug\UAVServer.pdb
+F:\Мои приложения\UAV\UAVServer\bin\Debug\System.ServiceModel.Duplex.dll
+F:\Мои приложения\UAV\UAVServer\bin\Debug\System.ServiceModel.Primitives.dll
+F:\Мои приложения\UAV\UAVServer\bin\Debug\System.ServiceModel.Duplex.pdb
+F:\Мои приложения\UAV\UAVServer\bin\Debug\System.ServiceModel.Primitives.pdb
+F:\Мои приложения\UAV\UAVServer\obj\Debug\UAVServer.csproj.CopyComplete

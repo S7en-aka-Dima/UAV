@@ -32,3 +32,14 @@ C:\Users\Володя\source\repos\UAV\UAVHost\obj\Debug\UAVHost.csproj.CoreComp
 C:\Users\Володя\source\repos\UAV\UAVHost\obj\Debug\UAVHost.csproj.CopyComplete
 C:\Users\Володя\source\repos\UAV\UAVHost\obj\Debug\UAVHost.exe
 C:\Users\Володя\source\repos\UAV\UAVHost\obj\Debug\UAVHost.pdb
+F:\Мои приложения\UAV\UAVHost\bin\Debug\UAVHost.exe.config
+F:\Мои приложения\UAV\UAVHost\bin\Debug\UAVHost.exe
+F:\Мои приложения\UAV\UAVHost\bin\Debug\UAVHost.pdb
+F:\Мои приложения\UAV\UAVHost\bin\Debug\UAVServer.dll
+F:\Мои приложения\UAV\UAVHost\bin\Debug\UAVServer.pdb
+F:\Мои приложения\UAV\UAVHost\bin\Debug\UAVServer.dll.config
+F:\Мои приложения\UAV\UAVHost\obj\Debug\UAVHost.csprojAssemblyReference.cache
+F:\Мои приложения\UAV\UAVHost\obj\Debug\UAVHost.csproj.CoreCompileInputs.cache
+F:\Мои приложения\UAV\UAVHost\obj\Debug\UAVHost.csproj.CopyComplete
+F:\Мои приложения\UAV\UAVHost\obj\Debug\UAVHost.exe
+F:\Мои приложения\UAV\UAVHost\obj\Debug\UAVHost.pdb

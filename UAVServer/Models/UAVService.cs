@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Modelling_Client.Models;
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,12 +18,12 @@ namespace UAVServer
     public class UAVService : IUAVService
     {
         List<UAVUser> users = new List<UAVUser>();
-        Dictionary<int, TransportClass> uavByUserID;
+        Dictionary<int, Iteration> uavByUserID;
 
         int iterations = 1;
         private int nextID = 1;
 
-        private async Task SaveIterationsAsync(Dictionary<int, TransportClass> data)
+        private async Task SaveIterationsAsync(Dictionary<int, Iteration> data)
         {
             string message = await Task.Run(() => SaveIterations(data));
 
@@ -60,7 +62,7 @@ namespace UAVServer
             users.Remove(users.Find(u => u.ID == id && u != null));
         }
 
-        private string SaveIterations(Dictionary<int, TransportClass> data)
+        private string SaveIterations(Dictionary<int, Iteration> data)
         {
             string path = string.Empty;
 
@@ -76,7 +78,7 @@ namespace UAVServer
                 {
                     try
                     {
-                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(TransportClass));
+                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(Iteration));
                         xmlSerializer.Serialize(file, item.Value);
                     }
                     catch(Exception se)
@@ -124,11 +126,11 @@ namespace UAVServer
                 user.operationContext.GetCallbackChannel<IServiceCallBack>().Stop();
         }
 
-        public List<TransportClass> GetData(int id)
+        public List<Iteration> GetData(int id)
         {
             if (id == 0) return null;
 
-            List<TransportClass> allData = new List<TransportClass>();
+            List<Iteration> allData = new List<Iteration>();
 
             foreach (var item in uavByUserID)
                 if (item.Key != id)
@@ -137,9 +139,9 @@ namespace UAVServer
             return allData;
         }
 
-        public List<TransportClass> GetAllData()
+        public List<Iteration> GetAllData()
         {
-            List<TransportClass> allData = new List<TransportClass>();
+            List<Iteration> allData = new List<Iteration>();
 
             foreach (var item in uavByUserID)
                 allData.Add(item.Value);
@@ -147,13 +149,13 @@ namespace UAVServer
             return allData;
         }
 
-        public void SendValues(TransportClass uav, int id)
+        public void SendValues(Iteration uav, int id)
         {
             if (id == 0) return;
 
 
             if(uavByUserID == null)
-                uavByUserID = new Dictionary<int, TransportClass>();
+                uavByUserID = new Dictionary<int, Iteration>();
 
             if (uavByUserID.ContainsKey(id)) 
                 uavByUserID[id] = uav;
