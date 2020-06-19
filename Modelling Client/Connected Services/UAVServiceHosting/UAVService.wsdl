@@ -76,6 +76,12 @@
   <wsdl:message name="IUAVService_StopModeling_InputMessage">
     <wsdl:part name="parameters" element="tns:StopModeling" />
   </wsdl:message>
+  <wsdl:message name="IUAVService_GetColor_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetColor" />
+  </wsdl:message>
+  <wsdl:message name="IUAVService_GetColor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetColorResponse" />
+  </wsdl:message>
   <wsdl:message name="IUAVService_SendValuesCallBack_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:SendValuesCallBack" />
   </wsdl:message>
@@ -118,6 +124,10 @@
     </wsdl:operation>
     <wsdl:operation name="StopModeling">
       <wsdl:input wsaw:Action="http://tempuri.org/IUAVService/StopModeling" message="tns:IUAVService_StopModeling_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetColor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUAVService/GetColor" message="tns:IUAVService_GetColor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUAVService/GetColorResponse" message="tns:IUAVService_GetColor_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SendValuesCallBack">
       <wsdl:output wsaw:Action="http://tempuri.org/IUAVService/SendValuesCallBack" message="tns:IUAVService_SendValuesCallBack_OutputCallbackMessage" />
@@ -197,6 +207,15 @@
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="GetColor">
+      <soap12:operation soapAction="http://tempuri.org/IUAVService/GetColor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="SendValuesCallBack">
       <soap12:operation soapAction="http://tempuri.org/IUAVService/SendValuesCallBack" style="document" />

@@ -48,7 +48,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -70,11 +72,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Connected Services\UAVServiceHosting\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IGPS.cs" />
     <Compile Include="Models\GPS.cs" />
     <Compile Include="Models\Iteration.cs" />
     <Compile Include="Models\Modelling.cs" />
-    <Compile Include="ViewModels\PrimaryRadarViewModel.cs" />
     <Compile Include="Views\PrimaryRadar.xaml.cs">
       <DependentUpon>PrimaryRadar.xaml</DependentUpon>
     </Compile>
@@ -124,7 +130,33 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Connected Services\UAVServiceHosting\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UAVServiceHosting\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UAVServiceHosting\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UAVServiceHosting\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UAVServiceHosting\item4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UAVServiceHosting\item5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UAVServiceHosting\item6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UAVServiceHosting\Modelling_Client.UAVServiceHosting.UAVBase.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UAVServiceHosting\UAVService.wsdl" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\System.Windows.Media.Color.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -175,6 +207,27 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\add-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\UAVServiceHosting\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UAVServiceHosting\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UAVServiceHosting\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UAVServiceHosting\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UAVServiceHosting\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

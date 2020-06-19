@@ -9,6 +9,15 @@ using System.Windows.Media;
 using Modelling_Client.Views;
 using Microsoft.Win32;
 using System.Data;
+using Modelling_Client.UAVServiceHosting;
+using UAVBase = Modelling_Client.Models.UAVBase;
+using RouteSegment = Modelling_Client.Models.RouteSegment;
+using UAVSettings = Modelling_Client.Models.UAVSettings;
+using DangerLevel = Modelling_Client.Models.Перечисления.DangerLevel;
+using SUAVBase = Modelling_Client.UAVServiceHosting.UAVBase;
+using SRouteSegment = Modelling_Client.UAVServiceHosting.RouteSegment;
+using SUAVSettings = Modelling_Client.UAVServiceHosting.UAVSettings;
+using SDangerLevel = Modelling_Client.UAVServiceHosting.DangerLevel;
 
 namespace Modelling_Client.ViewModels
 {
@@ -75,7 +84,9 @@ namespace Modelling_Client.ViewModels
 
         public void TestCommand()
         {
-            MessageBox.Show($"!");
+            string str = string.Empty;
+
+            MessageBox.Show($"{str}!");
         }
         public void TestCommand1(UAVsWorkMode msg)
         {
@@ -89,7 +100,7 @@ namespace Modelling_Client.ViewModels
             primaryRadar = new PrimaryRadar();
             primaryRadar.Show();
             primaryRadar.DisplayRadarGrid();
-            modelling.Simulate = true;
+            modelling.StartModelling();
         },
             () => primaryRadar == null);
         public ICommand NewModelling => new DelegateCommand(() =>
@@ -284,16 +295,13 @@ namespace Modelling_Client.ViewModels
         }
         public void Connect(bool connect)
         {
-            ThisClientID = 0;// получить от сервера
-            Color color = Color.FromArgb(25, 0, 0, 0);
+            modelling.ServiceClient = new UAVServiceClient(new System.ServiceModel.InstanceContext(modelling));
+
+            ThisClientID = connect ? modelling.ServiceClient.Connect(ThisClientID) : 0;
+            Color color = connect ? modelling.ServiceClient.GetColor(uavs.Count) : Color.FromArgb(25, 0, 0, 0);
 
             modelling.IsMultipleuser = connect;
             modelling.ThisClientID = ThisClientID;
-
-            if (modelling.IsMultipleuser)
-            {
-                //подключаемся и настраиваем цвета и id
-            }
 
             foreach (var uav in uavs)
             {

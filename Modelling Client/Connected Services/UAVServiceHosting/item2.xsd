@@ -7,22 +7,22 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfdouble" nillable="true" type="tns:ArrayOfdouble" />
-  <xs:complexType name="ArrayOfKeyValueOfintIteration12cqvAiQ">
+  <xs:complexType name="ArrayOfKeyValueOfintArrayOfUAVBase12cqvAiQ">
     <xs:annotation>
       <xs:appinfo>
         <IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
       </xs:appinfo>
     </xs:annotation>
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfintIteration12cqvAiQ">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfintArrayOfUAVBase12cqvAiQ">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="Key" type="xs:int" />
-            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Modelling_Client.Models" name="Value" nillable="true" type="q1:Iteration" />
+            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Modelling_Client.Models" name="Value" nillable="true" type="q1:ArrayOfUAVBase" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfKeyValueOfintIteration12cqvAiQ" nillable="true" type="tns:ArrayOfKeyValueOfintIteration12cqvAiQ" />
+  <xs:element name="ArrayOfKeyValueOfintArrayOfUAVBase12cqvAiQ" nillable="true" type="tns:ArrayOfKeyValueOfintArrayOfUAVBase12cqvAiQ" />
 </xs:schema>

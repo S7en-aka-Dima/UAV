@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Xml.Serialization;
 
 namespace UAVServer
@@ -18,17 +19,11 @@ namespace UAVServer
     public class UAVService : IUAVService
     {
         List<UAVUser> users = new List<UAVUser>();
-        Dictionary<int, Iteration> uavByUserID;
+        Dictionary<int, List<UAVBase>> uavByUserID;
 
         int iterations = 1;
         private int nextID = 1;
 
-        private async Task SaveIterationsAsync(Dictionary<int, Iteration> data)
-        {
-            string message = await Task.Run(() => SaveIterations(data));
-
-            Console.WriteLine($"{message}"); 
-        }
 
         //[TODO] сделать переподключение с возвращением клиенту (возможно с новым id) истории всех итераций
         public int Connect(int id)
@@ -54,15 +49,33 @@ namespace UAVServer
 
             return id;
         }
-
         public void Disconnect(int id)
         {
             if (id == 0) return;
             Console.WriteLine($"{users.Find(u => u.ID == id && u != null).ID} отключился");
             users.Remove(users.Find(u => u.ID == id && u != null));
         }
+        public Color GetColor(int CountUAVs = 0)
+        {
+            int step = CountUAVs >= 12 ? 5 : 10;
 
-        private string SaveIterations(Dictionary<int, Iteration> data)
+            Random random = new Random();
+            var color = new Color();
+
+            color.R = Convert.ToByte(random.Next(CountUAVs * step, 255));
+            color.G = Convert.ToByte(random.Next(CountUAVs * step, 255));
+            color.B = Convert.ToByte(random.Next(CountUAVs * step, 255));
+
+            return color;
+        }
+
+        private async Task SaveIterationsAsync(Dictionary<int, List<UAVBase>> data)
+        {
+            string message = await Task.Run(() => SaveIterations(data));
+
+            Console.WriteLine($"{message}"); 
+        }
+        private string SaveIterations(Dictionary<int, List<UAVBase>> data)
         {
             string path = string.Empty;
 
@@ -126,11 +139,11 @@ namespace UAVServer
                 user.operationContext.GetCallbackChannel<IServiceCallBack>().Stop();
         }
 
-        public List<Iteration> GetData(int id)
+        public List<List<UAVBase>> GetData(int id)
         {
             if (id == 0) return null;
 
-            List<Iteration> allData = new List<Iteration>();
+            List<List<UAVBase>> allData = new List<List<UAVBase>>();
 
             foreach (var item in uavByUserID)
                 if (item.Key != id)
@@ -139,9 +152,9 @@ namespace UAVServer
             return allData;
         }
 
-        public List<Iteration> GetAllData()
+        public List<List<UAVBase>> GetAllData()
         {
-            List<Iteration> allData = new List<Iteration>();
+            List<List<UAVBase>> allData = new List<List<UAVBase>>();
 
             foreach (var item in uavByUserID)
                 allData.Add(item.Value);
@@ -149,13 +162,13 @@ namespace UAVServer
             return allData;
         }
 
-        public void SendValues(Iteration uav, int id)
+        public void SendValues(List<UAVBase> uav, int id)
         {
             if (id == 0) return;
 
 
             if(uavByUserID == null)
-                uavByUserID = new Dictionary<int, Iteration>();
+                uavByUserID = new Dictionary<int, List<UAVBase>>();
 
             if (uavByUserID.ContainsKey(id)) 
                 uavByUserID[id] = uav;

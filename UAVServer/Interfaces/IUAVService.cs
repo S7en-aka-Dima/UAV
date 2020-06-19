@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
+using System.Windows.Media;
 
 namespace UAVServer
 {
@@ -29,17 +30,17 @@ namespace UAVServer
         /// Передает итерации не пренадлежащие клиенту
         /// </summary>
         /// <param name="id">Уникальный номер клиента</param>
-        /// <returns>возвращает список <list type="List<Iteration>"/></returns>
+        /// <returns>возвращает список <list type="List<UAVBase>"/></returns>
         [OperationContract]
-        List<Iteration> GetData(int id);
+        List<List<UAVBase>> GetData(int id);
 
         [Obsolete("Не рекомендуется использовать из-за возможной неполноты данных, дождитесь ответа сервера", true)]
         /// <summary>
         /// Передает все данные последней итерации клиенту
         /// </summary>
-        /// <returns>возвращает список <list type="List<Iteration>"/></returns>
+        /// <returns>возвращает список <list type="List<UAVBase>"/></returns>
         [OperationContract]
-        List<Iteration> GetAllData();
+        List<List<UAVBase>> GetAllData();
 
         /// <summary>
         /// Передаёт данные текущей итерации на сервер для обмена 
@@ -47,7 +48,7 @@ namespace UAVServer
         /// <param name="uav">Расширенный класс содержищий основной класс UAVBase/>
         /// <param name="id"></param>
         [OperationContract(IsOneWay = true)]
-        void SendValues(Iteration uav, int id);
+        void SendValues(List<UAVBase> uav, int id);
 
         [OperationContract(IsOneWay = true)]
         void SendValues1(string n);
@@ -70,17 +71,20 @@ namespace UAVServer
         /// </summary>
         [OperationContract(IsOneWay = true)]
         void StopModeling();
+
+        [OperationContract]
+        Color GetColor(int CountUAVs = 0);
     }
 
     [ServiceContract]
     public interface IServiceCallBack
     {
         /// <summary>
-        /// Возвращает клиенту список типа Dictionary<int, Iteration>, где первый столбец - id клиента
+        /// Возвращает клиенту список типа Dictionary<int, UAVBase>, где первый столбец - id клиента
         /// </summary>
         /// <param name="data"></param>
         [OperationContract(IsOneWay = true)]
-        void SendValuesCallBack(Dictionary<int, Iteration> data);
+        void SendValuesCallBack(Dictionary<int, List<UAVBase>> data);
 
         [OperationContract(IsOneWay = true)]
         void SendValuesCallBack1(string srt);

@@ -15,62 +15,6 @@ namespace Modelling_Client.UAVServiceHosting {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Iteration", Namespace="http://schemas.datacontract.org/2004/07/Modelling_Client.Models")]
-    [System.SerializableAttribute()]
-    public partial class Iteration : Modelling_Client.UAVServiceHosting.BaseViewModel {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Modelling_Client.UAVServiceHosting.UAVBase[] uavsField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Modelling_Client.UAVServiceHosting.UAVBase[] uavs {
-            get {
-                return this.uavsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.uavsField, value) != true)) {
-                    this.uavsField = value;
-                    this.RaisePropertyChanged("uavs");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BaseViewModel", Namespace="http://schemas.datacontract.org/2004/07/Modelling_Client.ViewModels")]
-    [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Modelling_Client.UAVServiceHosting.UAVBase))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Modelling_Client.UAVServiceHosting.RouteSegment))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Modelling_Client.UAVServiceHosting.UAVSettings))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Modelling_Client.UAVServiceHosting.Iteration))]
-    public partial class BaseViewModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UAVBase", Namespace="http://schemas.datacontract.org/2004/07/Modelling_Client.Models")]
     [System.SerializableAttribute()]
     public partial class UAVBase : Modelling_Client.UAVServiceHosting.BaseViewModel {
@@ -216,6 +160,38 @@ namespace Modelling_Client.UAVServiceHosting {
                     this.SettingsField = value;
                     this.RaisePropertyChanged("Settings");
                 }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BaseViewModel", Namespace="http://schemas.datacontract.org/2004/07/Modelling_Client.ViewModels")]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Modelling_Client.UAVServiceHosting.RouteSegment))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Modelling_Client.UAVServiceHosting.UAVSettings))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Modelling_Client.UAVServiceHosting.UAVBase))]
+    public partial class BaseViewModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
     }
@@ -775,22 +751,22 @@ namespace Modelling_Client.UAVServiceHosting {
         System.Threading.Tasks.Task DisconnectAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUAVService/GetData", ReplyAction="http://tempuri.org/IUAVService/GetDataResponse")]
-        Modelling_Client.UAVServiceHosting.Iteration[] GetData(int id);
+        Modelling_Client.UAVServiceHosting.UAVBase[][] GetData(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUAVService/GetData", ReplyAction="http://tempuri.org/IUAVService/GetDataResponse")]
-        System.Threading.Tasks.Task<Modelling_Client.UAVServiceHosting.Iteration[]> GetDataAsync(int id);
+        System.Threading.Tasks.Task<Modelling_Client.UAVServiceHosting.UAVBase[][]> GetDataAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUAVService/GetAllData", ReplyAction="http://tempuri.org/IUAVService/GetAllDataResponse")]
-        Modelling_Client.UAVServiceHosting.Iteration[] GetAllData();
+        Modelling_Client.UAVServiceHosting.UAVBase[][] GetAllData();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUAVService/GetAllData", ReplyAction="http://tempuri.org/IUAVService/GetAllDataResponse")]
-        System.Threading.Tasks.Task<Modelling_Client.UAVServiceHosting.Iteration[]> GetAllDataAsync();
+        System.Threading.Tasks.Task<Modelling_Client.UAVServiceHosting.UAVBase[][]> GetAllDataAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IUAVService/SendValues")]
-        void SendValues(Modelling_Client.UAVServiceHosting.Iteration uav, int id);
+        void SendValues(Modelling_Client.UAVServiceHosting.UAVBase[] uav, int id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IUAVService/SendValues")]
-        System.Threading.Tasks.Task SendValuesAsync(Modelling_Client.UAVServiceHosting.Iteration uav, int id);
+        System.Threading.Tasks.Task SendValuesAsync(Modelling_Client.UAVServiceHosting.UAVBase[] uav, int id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IUAVService/SendValues1")]
         void SendValues1(string n);
@@ -815,13 +791,19 @@ namespace Modelling_Client.UAVServiceHosting {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IUAVService/StopModeling")]
         System.Threading.Tasks.Task StopModelingAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUAVService/GetColor", ReplyAction="http://tempuri.org/IUAVService/GetColorResponse")]
+        System.Windows.Media.Color GetColor(int CountUAVs);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUAVService/GetColor", ReplyAction="http://tempuri.org/IUAVService/GetColorResponse")]
+        System.Threading.Tasks.Task<System.Windows.Media.Color> GetColorAsync(int CountUAVs);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IUAVServiceCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IUAVService/SendValuesCallBack")]
-        void SendValuesCallBack(System.Collections.Generic.Dictionary<int, Modelling_Client.UAVServiceHosting.Iteration> data);
+        void SendValuesCallBack(System.Collections.Generic.Dictionary<int, Modelling_Client.UAVServiceHosting.UAVBase[]> data);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IUAVService/SendValuesCallBack1")]
         void SendValuesCallBack1(string srt);
@@ -877,27 +859,27 @@ namespace Modelling_Client.UAVServiceHosting {
             return base.Channel.DisconnectAsync(id);
         }
         
-        public Modelling_Client.UAVServiceHosting.Iteration[] GetData(int id) {
+        public Modelling_Client.UAVServiceHosting.UAVBase[][] GetData(int id) {
             return base.Channel.GetData(id);
         }
         
-        public System.Threading.Tasks.Task<Modelling_Client.UAVServiceHosting.Iteration[]> GetDataAsync(int id) {
+        public System.Threading.Tasks.Task<Modelling_Client.UAVServiceHosting.UAVBase[][]> GetDataAsync(int id) {
             return base.Channel.GetDataAsync(id);
         }
         
-        public Modelling_Client.UAVServiceHosting.Iteration[] GetAllData() {
+        public Modelling_Client.UAVServiceHosting.UAVBase[][] GetAllData() {
             return base.Channel.GetAllData();
         }
         
-        public System.Threading.Tasks.Task<Modelling_Client.UAVServiceHosting.Iteration[]> GetAllDataAsync() {
+        public System.Threading.Tasks.Task<Modelling_Client.UAVServiceHosting.UAVBase[][]> GetAllDataAsync() {
             return base.Channel.GetAllDataAsync();
         }
         
-        public void SendValues(Modelling_Client.UAVServiceHosting.Iteration uav, int id) {
+        public void SendValues(Modelling_Client.UAVServiceHosting.UAVBase[] uav, int id) {
             base.Channel.SendValues(uav, id);
         }
         
-        public System.Threading.Tasks.Task SendValuesAsync(Modelling_Client.UAVServiceHosting.Iteration uav, int id) {
+        public System.Threading.Tasks.Task SendValuesAsync(Modelling_Client.UAVServiceHosting.UAVBase[] uav, int id) {
             return base.Channel.SendValuesAsync(uav, id);
         }
         
@@ -931,6 +913,14 @@ namespace Modelling_Client.UAVServiceHosting {
         
         public System.Threading.Tasks.Task StopModelingAsync() {
             return base.Channel.StopModelingAsync();
+        }
+        
+        public System.Windows.Media.Color GetColor(int CountUAVs) {
+            return base.Channel.GetColor(CountUAVs);
+        }
+        
+        public System.Threading.Tasks.Task<System.Windows.Media.Color> GetColorAsync(int CountUAVs) {
+            return base.Channel.GetColorAsync(CountUAVs);
         }
     }
 }

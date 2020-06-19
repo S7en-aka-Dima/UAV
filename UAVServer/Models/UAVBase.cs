@@ -21,7 +21,7 @@ namespace Modelling_Client.Models
 
         private DangerLevel dangerLevel = DangerLevel.SafeLevel;
         private UAVSettings settings;
-        private List<RouteSegment> route;
+        private ObservableCollection<RouteSegment> route;
         private Color color = Color.FromArgb(26, 0, 0, 0);
         private RouteSegment currentSegment;
 
@@ -30,16 +30,16 @@ namespace Modelling_Client.Models
         public UAVBase()
         {
             settings = new UAVSettings();
-            route = new List<RouteSegment> { new RouteSegment() };
+            route = new ObservableCollection<RouteSegment> { new RouteSegment() };
             currentSegment = route[0];
         }
         public UAVBase(UAVSettings settings)
         {
             this.settings = settings;
-            route = new List<RouteSegment> { new RouteSegment() };
+            route = new ObservableCollection<RouteSegment> { new RouteSegment() };
             currentSegment = route[0];
         }
-        public UAVBase(UAVSettings settings, List<RouteSegment> routeSegments)
+        public UAVBase(UAVSettings settings, ObservableCollection<RouteSegment> routeSegments)
         {
             this.settings = settings;
             this.route = routeSegments;
@@ -83,7 +83,7 @@ namespace Modelling_Client.Models
             set { settings = value; OnPropertyChanged(); }
         }
         [DataMember]
-        public List<RouteSegment> Route
+        public ObservableCollection<RouteSegment> Route
         {
             get => route;
             set { route = value; OnPropertyChanged(); }
@@ -98,7 +98,7 @@ namespace Modelling_Client.Models
         public RouteSegment CurrentSegment
         {
             get => currentSegment;
-            set { currentSegment = value; OnPropertyChanged(); OnPropertyChanged("Route"); }
+            set { currentSegment = value; OnPropertyChanged(); }
         }
     }
 }

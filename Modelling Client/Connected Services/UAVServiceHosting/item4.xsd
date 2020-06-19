@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Modelling_Client.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Modelling_Client.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8732/?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Windows.Media" />
+  <xs:import schemaLocation="http://localhost:8732/?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Modelling_Client.Models.%D0%9F%D0%B5%D1%80%D0%B5%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F" />
+  <xs:import schemaLocation="http://localhost:8732/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Modelling_Client.ViewModels" />
+  <xs:import schemaLocation="http://localhost:8732/?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="ArrayOfArrayOfUAVBase">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfUAVBase" nillable="true" type="tns:ArrayOfUAVBase" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfArrayOfUAVBase" nillable="true" type="tns:ArrayOfArrayOfUAVBase" />
+  <xs:complexType name="ArrayOfUAVBase">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UAVBase" nillable="true" type="tns:UAVBase" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUAVBase" nillable="true" type="tns:ArrayOfUAVBase" />
+  <xs:complexType name="UAVBase">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Modelling_Client.ViewModels" base="q1:BaseViewModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CanChange" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ClientID" type="xs:int" />
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System.Windows.Media" minOccurs="0" name="Color" type="q2:Color" />
+          <xs:element minOccurs="0" name="CurrentSegment" nillable="true" type="tns:RouteSegment" />
+          <xs:element minOccurs="0" name="DangerClientID" type="xs:int" />
+          <xs:element minOccurs="0" name="DangerID" type="xs:int" />
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Modelling_Client.Models.%D0%9F%D0%B5%D1%80%D0%B5%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F" minOccurs="0" name="DangerLevel" type="q3:DangerLevel" />
+          <xs:element minOccurs="0" name="Route" nillable="true" type="tns:ArrayOfRouteSegment" />
+          <xs:element minOccurs="0" name="Settings" nillable="true" type="tns:UAVSettings" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UAVBase" nillable="true" type="tns:UAVBase" />
+  <xs:complexType name="RouteSegment">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q4="http://schemas.datacontract.org/2004/07/Modelling_Client.ViewModels" base="q4:BaseViewModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DiscretionToChange" type="xs:boolean" />
+          <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="EndPoint" nillable="true" type="q5:ArrayOfdouble" />
+          <xs:element minOccurs="0" name="EndX" type="xs:double" />
+          <xs:element minOccurs="0" name="EndY" type="xs:double" />
+          <xs:element minOccurs="0" name="EndZ" type="xs:double" />
+          <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Speed" nillable="true" type="q6:ArrayOfdouble" />
+          <xs:element minOccurs="0" name="SpeedX" type="xs:double" />
+          <xs:element minOccurs="0" name="SpeedY" type="xs:double" />
+          <xs:element minOccurs="0" name="SpeedZ" type="xs:double" />
+          <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="StartPoint" nillable="true" type="q7:ArrayOfdouble" />
+          <xs:element minOccurs="0" name="StartX" type="xs:double" />
+          <xs:element minOccurs="0" name="StartY" type="xs:double" />
+          <xs:element minOccurs="0" name="StartZ" type="xs:double" />
+          <xs:element minOccurs="0" name="discretionToChange" type="xs:boolean" />
+          <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="endPoint" nillable="true" type="q8:ArrayOfdouble" />
+          <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="speed" nillable="true" type="q9:ArrayOfdouble" />
+          <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="startPoint" nillable="true" type="q10:ArrayOfdouble" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RouteSegment" nillable="true" type="tns:RouteSegment" />
+  <xs:complexType name="ArrayOfRouteSegment">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RouteSegment" nillable="true" type="tns:RouteSegment" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRouteSegment" nillable="true" type="tns:ArrayOfRouteSegment" />
+  <xs:complexType name="UAVSettings">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q11="http://schemas.datacontract.org/2004/07/Modelling_Client.ViewModels" base="q11:BaseViewModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Accel" type="xs:double" />
+          <xs:element minOccurs="0" name="AccelX" type="xs:double" />
+          <xs:element minOccurs="0" name="AccelY" type="xs:double" />
+          <xs:element minOccurs="0" name="AccelZ" type="xs:double" />
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="MaxSpeed" type="xs:double" />
+          <xs:element minOccurs="0" name="MinSpeed" type="xs:double" />
+          <xs:element minOccurs="0" name="Radius" type="xs:double" />
+          <xs:element minOccurs="0" name="Speed" type="xs:double" />
+          <xs:element minOccurs="0" name="SpeedX" type="xs:double" />
+          <xs:element minOccurs="0" name="SpeedY" type="xs:double" />
+          <xs:element minOccurs="0" name="SpeedZ" type="xs:double" />
+          <xs:element minOccurs="0" name="X" type="xs:double" />
+          <xs:element minOccurs="0" name="Y" type="xs:double" />
+          <xs:element minOccurs="0" name="Z" type="xs:double" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UAVSettings" nillable="true" type="tns:UAVSettings" />
+</xs:schema>
