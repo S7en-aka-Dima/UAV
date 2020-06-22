@@ -62,7 +62,7 @@ namespace UAVServer
             Random random = new Random();
             var color = new Color();
 
-            color.A = Convert.ToByte(random.Next(CountUAVs * step, 255));
+            color.A = Convert.ToByte(random.Next(CountUAVs * step, 200));
             color.R = Convert.ToByte(random.Next(CountUAVs * step, 255));
             color.G = Convert.ToByte(random.Next(CountUAVs * step, 255));
             color.B = Convert.ToByte(random.Next(CountUAVs * step, 255));
@@ -175,13 +175,12 @@ namespace UAVServer
                 uavByUserID[id] = uav;
             else
                 uavByUserID.Add(id, uav);
-#if DEBUG
-            Console.WriteLine($"{uavByUserID.Count} {users.Count}");
-#endif
+
             if (uavByUserID.Count == users.Count)
             {
                 SaveIterationsAsync(uavByUserID);
 #if DEBUG
+                Console.WriteLine($"{uavByUserID.Count} {users.Count}");
                 Console.WriteLine($"{uavByUserID.Count} {users.Count} in if");
 
                 foreach (var user in users)

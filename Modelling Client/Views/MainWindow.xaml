@@ -95,7 +95,7 @@
                                 <Border Margin="0"
                                         CornerRadius=" 10 10 10 10">
                                     <Border.Background>
-                                        <SolidColorBrush Color="{Binding Color}" Opacity="0.5"/>
+                                        <SolidColorBrush Color="{Binding DataContext.Modelling.UAVColor, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" Opacity="0.5"/>
                                     </Border.Background>
                                     <Border.BorderThickness>
                                         <Thickness Bottom="2"/>
@@ -336,6 +336,7 @@
                         DockPanel.Dock="Top"
                         VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                         FontSize="10" FontStyle="Normal"
+                        IsEnabled="{Binding SelectedUAV.CanChange}"
                         Command="{Binding AddSegment}"/>
                 <Button Content="Изменить"
                         Visibility="Collapsed"
@@ -350,7 +351,7 @@
                         Padding="5 1" Margin="5"
                         VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                         FontSize="10" FontStyle="Normal"
-                        IsEnabled="{Binding MyUAV}"
+                        IsEnabled="{Binding SelectedUAV.CanChange}"
                         Command="{Binding RemoveRouteSegment}"
                         CommandParameter="{Binding SelectedRouteSigment}"/>
             </StackPanel>
@@ -513,9 +514,10 @@
                     <Image Source="/Icons/save-all-button.png" Stretch="Fill" Margin="1"/>
                 </Button>
 
-                <Button Content="Сохранить в Excel"
-                        ToolTip="Сохранить в Excel"
-                        Command="{Binding SaveIntoExcel}"/>
+                <Button ToolTip="Сохранить в Excel"
+                        Command="{Binding SaveIntoExcel}">
+                    <Image Source="/Icons/save-into-excel.png" Stretch="Fill" Margin="0"/>
+                </Button>
 
                 <Separator/>
                 <Button Content="-5"

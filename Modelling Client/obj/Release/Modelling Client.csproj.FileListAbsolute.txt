@@ -27,3 +27,4 @@ F:\Мои приложения\UAV\Modelling Client\obj\Release\Modelling Client
 F:\Мои приложения\UAV\Modelling Client\obj\Release\Modelling Client.csproj.CopyComplete
 F:\Мои приложения\UAV\Modelling Client\obj\Release\Modelling Client.exe
 F:\Мои приложения\UAV\Modelling Client\obj\Release\Modelling Client.pdb
+F:\Мои приложения\UAV\Modelling Client\obj\Release\Modelling Client.csproj.ResolveComReference.cache

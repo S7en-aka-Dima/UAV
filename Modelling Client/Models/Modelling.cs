@@ -44,12 +44,13 @@ namespace Modelling_Client.Models
             isMultipleuser = false,
             simulate = false;
 
-        private System.Windows.Media.Color color = System.Windows.Media.Color.FromArgb(19, 0, 0, 0);
+        private System.Windows.Media.Color color = System.Windows.Media.Color.FromArgb(26, 0, 0, 0);
         private ObservableCollection<Iteration> iterations = new ObservableCollection<Iteration>();
         private ObservableCollection<UAVBase>
             uavs = new ObservableCollection<UAVBase>
             {
-            new UAVBase(
+#if DEBUG
+                new UAVBase(
                 new UAVSettings{ID = 1, Radius = 10, Speed = 5, X = 1111.111, Y = 1234.202, Z = 133.002},
                 new ObservableCollection<RouteSegment>
                 {
@@ -63,14 +64,23 @@ namespace Modelling_Client.Models
                     new RouteSegment(1111.111, 1234.202, 133.002, 222.369, 2148.551, 2),
                     new RouteSegment(1111.111, 1234.202, 133.002, 222.369, 2148.551, 2)
                 })
+#else
+                new UAVBase(),
+                new UAVBase()
+#endif
             },
             myUAVs = new ObservableCollection<UAVBase>();
 
         public Modelling()
         {
             path = $@"{DateTime.UtcNow.ToString("dd(ddd)-MM-yyyy HH-mm-ss")}";
+#if DEBUG
             uavs[0].DangerID = 1;
             uavs[0].DangerClientID = 32;
+#endif
+
+            foreach (var uav in uavs)
+                myUAVs.Add(uav);
 
             Connect(false);
         }
@@ -87,14 +97,7 @@ namespace Modelling_Client.Models
             set
             {
                 simulate = value;
-
-                if (value)
-                {
-                    Random rdm = new Random();
-
-                    for (int i = 0; i < rdm.Next(50); i++)
-                        iterations.Add(new Iteration(uavs));
-                }
+                path = $@"{DateTime.UtcNow.ToString("dd(ddd)-MM-yyyy HH-mm-ss")}";
 
                 OnPropertyChanged();
             }
@@ -174,21 +177,19 @@ namespace Modelling_Client.Models
 
             fileName += ".xml";
 
-            // обработчик с какой кнопки
+            // сохранение в определённую папку или в папку по умолчанию
             if (FlagSave)
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
+
                 saveFileDialog.FileName = path;
                 saveFileDialog.Filter = "Файл сохранения моделирования XML (*.xml)|*.xml";
+
                 if ((bool)saveFileDialog.ShowDialog())
-                {
                     SerializeOrDeserialize(saveFileDialog.FileName, UAVsWorkMode.Serialize);
-                }
             }
             else
-            {
                 SerializeOrDeserialize(fileName, UAVsWorkMode.Serialize);
-            }
         }
         public void SaveIntoExcel()
         {
@@ -200,8 +201,83 @@ namespace Modelling_Client.Models
         {
             simulate = true;
             OnPropertyChanged("Simulate");
+
             if (isMultipleuser)
                 ServiceClient.LetsStart(thisClientID);
+        }
+        public void RestoreMyUAVs()
+        {
+            myUAVs.Clear();
+
+            foreach (var uav in uavs)
+                if (uav.ClientID == thisClientID)
+                    myUAVs.Add(uav);
+        }
+        public void PutColor()
+        {
+            RestoreMyUAVs();
+
+            int
+                k = -1,
+                step;
+
+            if (myUAVs.Count > 15) step = 5;
+            else step = 10;
+
+            foreach (var uav in myUAVs)
+            {
+                uav.Color = System.Windows.Media.Color.FromArgb((byte)(color.A - (k * step)), color.R, color.G, color.B);
+
+#if DEBUG
+                MessageBox.Show($"{(color.A - (k * step))} {color.B} {color.G} {color.B} {k} {step}");
+#endif
+                if ((color.A - ((k + 1) * step)) > 0)
+                    k++;
+            }
+
+            uavs[0].Color = System.Windows.Media.Color.FromArgb(100, 0, 255, 0);
+        }
+        public void Connect(bool connect)
+        {
+            if (connect)
+            {
+                if (ServiceClient == null || ServiceClient.ChannelFactory.State == CommunicationState.Faulted)
+                    ServiceClient = new UAVServiceClient(new InstanceContext(this), "NetTcpBinding_IUAVService");
+            }
+            else if (ServiceClient != null)
+                ServiceClient.Disconnect(thisClientID);
+
+            if (ServiceClient != null && ServiceClient.ChannelFactory.State == CommunicationState.Faulted)
+            {
+                MessageBox.Show($"Ошибка подключения!");
+                ServiceClient = null;
+                return;
+            }
+
+            thisClientID = connect ? ServiceClient.Connect(thisClientID) : thisClientID;
+            color = connect ? ServiceClient.GetColor(uavs.Count) : System.Windows.Media.Color.FromArgb(26, 0, 0, 0);
+
+            isMultipleuser = connect;
+            myUAVs.Clear();
+
+            foreach (var uav in uavs)
+            {
+                if (uav.ClientID == 0)
+                    uav.ClientID = thisClientID;
+
+                if (uav.ClientID == thisClientID)
+                {
+                    myUAVs.Add(uav);
+                }
+            }
+
+            PutColor();
+            /*
+            uavs[1].ClientID = 32;
+            */
+
+            OnPropertyChanged("IsMultipleuser");
+            OnPropertyChanged("AllUAVBases");
         }
 
         private void SerializeOrDeserialize(string filePath, UAVsWorkMode mode)
@@ -307,7 +383,7 @@ namespace Modelling_Client.Models
             Dictionary<int, int> clientwithnum = new Dictionary<int, int>();
             clientwithnum.Add(numClient, curClientID);
 
-            #region Заполнение файла
+#region Заполнение файла
             foreach (var uav in uavs)
             {
                 //  отрисовка следующего бпла того же клиента
@@ -496,7 +572,7 @@ namespace Modelling_Client.Models
                 }
                 j++;
             }
-            #endregion
+#endregion
 
             excel.Visible = true;
             workbook.Save();
@@ -542,66 +618,24 @@ namespace Modelling_Client.Models
         }
         private void Simulation()
         {
+            List<SUAVBase> sUAVBases = new List<SUAVBase>();
+
             currentIterationCount++;
             /*
              * Моделирование
              * Использовать коллекцию myUAVs, изменять ЭТИ бпла
              * Для отрисовки других использовать uavs, где значения нужно будет менять начиная с [myUAVs.Count - 1]
              */
-            List<SUAVBase> sUAVBases = new List<SUAVBase>();
 
+            /*
             foreach (var items in myUAVs)
                 sUAVBases.Add(ConvertToUAVBase(items));
+            */
 
             ServiceClient.SendValues(sUAVBases.ToArray(), thisClientID);
         }
-        public void Connect(bool connect)
-        {
-            if (connect)
-            {
-                if (ServiceClient == null || ServiceClient.ChannelFactory.State == CommunicationState.Faulted)
-                    ServiceClient = new UAVServiceClient(new InstanceContext(this), "NetTcpBinding_IUAVService");
-            }
-            else if (ServiceClient != null)
-                ServiceClient.Disconnect(thisClientID);
 
-            if (ServiceClient != null && ServiceClient.ChannelFactory.State == CommunicationState.Faulted)
-            {
-                MessageBox.Show($"Ошибка подключения!");
-                ServiceClient = null;
-                return;
-            }
-
-            thisClientID = connect ? ServiceClient.Connect(thisClientID) : thisClientID;
-            color = connect ? ServiceClient.GetColor(uavs.Count) : color;
-
-            isMultipleuser = connect;
-
-            int 
-                k = 0,
-                step;
-
-            if (myUAVs.Count > 12) step = 5;
-            else step = 10;
-            foreach (var uav in myUAVs)
-            {
-                uav.ClientID = thisClientID;
-
-                uav.Color = System.Windows.Media.Color.FromArgb((byte)(color.A - (k++ * step)), color.R, color.G, color.B);
-            }
-
-            MessageBox.Show($"{color}");
-
-            uavs[0].Color = System.Windows.Media.Color.FromArgb(100, 0, 255, 0);
-            /*
-            uavs[1].ClientID = 32;
-            */
-
-            OnPropertyChanged("IsMultipleuser");
-            OnPropertyChanged("AllUAVBases");
-        }
-
-        #region Конверторы
+#region Конверторы
         private SDangerLevel ConvertToDangerLevel(DangerLevel myDL)
         {
             SDangerLevel sDangerLevel = SDangerLevel.SafeLevel;
@@ -729,15 +763,19 @@ namespace Modelling_Client.Models
             Y = settings.Y,
             Z = settings.Z
         };
-        #endregion
+#endregion
 
-        #region CallBack
+#region CallBack
         public void SendValuesCallBack(Dictionary<int, SUAVBase[]> data)
         {
             var iter = new Iteration();
 
+            /*
             foreach (var uav in myUAVs)
                 iter.UAVs.Add(uav);
+            */
+
+            myUAVs.Clear();
 
             foreach (var item in data)
                 if (item.Key != thisClientID)
@@ -746,6 +784,9 @@ namespace Modelling_Client.Models
                         UAVBase uavBase = ConvertToUAVBase(uav);
 
                         iter.UAVs.Add(uavBase);
+
+                        if (uav.ClientID == thisClientID)
+                            myUAVs.Add(uavBase);
 
                         simulate = !(uav.DangerLevel == SDangerLevel.Crash || iterationCount >= currentIterationCount || simulate == false);    //  Нужно ли продолжать моделирование
                     }
@@ -775,6 +816,6 @@ namespace Modelling_Client.Models
         {
             simulate = false;
         }
-        #endregion
+#endregion
     }
 }

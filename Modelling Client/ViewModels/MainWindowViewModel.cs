@@ -284,6 +284,7 @@ namespace Modelling_Client.ViewModels
 
             selectedUAV = uavs[uavs.Count - 1];
 
+            modelling.PutColor();
             OnPropertyChanged("SelectedUAV");
             OnPropertyChanged("UAVs");
             GC.Collect();
