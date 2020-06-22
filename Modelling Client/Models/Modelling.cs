@@ -3,6 +3,7 @@ using Microsoft.Office.Interop.Excel;
 using Microsoft.Win32;
 using Modelling_Client.Models.Перечисления;
 using Modelling_Client.UAVServiceHosting;
+using System.ServiceModel;
 using Modelling_Client.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ using SRouteSegment = Modelling_Client.UAVServiceHosting.RouteSegment;
 using SUAVSettings = Modelling_Client.UAVServiceHosting.UAVSettings;
 using SDangerLevel = Modelling_Client.UAVServiceHosting.DangerLevel;
 using DangerLevel = Modelling_Client.Models.Перечисления.DangerLevel;
-using Modelling_Client.Properties;
+using System.ServiceModel.Channels;
 
 namespace Modelling_Client.Models
 {
@@ -34,13 +35,16 @@ namespace Modelling_Client.Models
         private string path;
 
         private int
+            iterationCount = 0,
+            currentIterationCount = 0,
             numberOfIterations,
-            thisClientID;
+            thisClientID = 0;
 
         private bool
             isMultipleuser = false,
             simulate = false;
 
+        private System.Windows.Media.Color color = System.Windows.Media.Color.FromArgb(19, 0, 0, 0);
         private ObservableCollection<Iteration> iterations = new ObservableCollection<Iteration>();
         private ObservableCollection<UAVBase>
             uavs = new ObservableCollection<UAVBase>
@@ -64,10 +68,11 @@ namespace Modelling_Client.Models
 
         public Modelling()
         {
-            myUAVs = uavs;
             path = $@"{DateTime.UtcNow.ToString("dd(ddd)-MM-yyyy HH-mm-ss")}";
             uavs[0].DangerID = 1;
             uavs[0].DangerClientID = 32;
+
+            Connect(false);
         }
 
         public string Path
@@ -98,12 +103,7 @@ namespace Modelling_Client.Models
         public bool IsMultipleuser
         {
             get => isMultipleuser;
-            set
-            {
-                isMultipleuser = value;
-
-                OnPropertyChanged();
-            }
+            set { Connect(value); }
         }
         public int NumberOfIterations
         {
@@ -115,11 +115,33 @@ namespace Modelling_Client.Models
             get => thisClientID;
             set { thisClientID = value; OnPropertyChanged(); }
         }
+        public int IterationCount
+        {
+            get => iterationCount;
+            set { iterationCount = value; OnPropertyChanged(); }
+        }
+        public int CurrentIterationCount
+        {
+            get => currentIterationCount;
+            set { currentIterationCount = value; OnPropertyChanged(); }
+        }
 
+        public System.Windows.Media.Color UAVColor => color;
         public ObservableCollection<UAVBase> AllUAVBases
         {
             get => uavs;
-            set { uavs = value; OnPropertyChanged(); }
+            set 
+            {
+                uavs = value;
+
+                myUAVs.Clear();
+
+                foreach (var uav in uavs)
+                    if (uav.ClientID == thisClientID)
+                        myUAVs.Add(uav);
+
+                OnPropertyChanged();
+            }
         }
         public ObservableCollection<Iteration> Iterations
         {
@@ -178,7 +200,8 @@ namespace Modelling_Client.Models
         {
             simulate = true;
             OnPropertyChanged("Simulate");
-            ServiceClient.LetsStart(thisClientID);
+            if (isMultipleuser)
+                ServiceClient.LetsStart(thisClientID);
         }
 
         private void SerializeOrDeserialize(string filePath, UAVsWorkMode mode)
@@ -519,6 +542,7 @@ namespace Modelling_Client.Models
         }
         private void Simulation()
         {
+            currentIterationCount++;
             /*
              * Моделирование
              * Использовать коллекцию myUAVs, изменять ЭТИ бпла
@@ -531,6 +555,53 @@ namespace Modelling_Client.Models
 
             ServiceClient.SendValues(sUAVBases.ToArray(), thisClientID);
         }
+        public void Connect(bool connect)
+        {
+            if (connect)
+            {
+                if (ServiceClient == null || ServiceClient.ChannelFactory.State == CommunicationState.Faulted)
+                    ServiceClient = new UAVServiceClient(new InstanceContext(this), "NetTcpBinding_IUAVService");
+            }
+            else if (ServiceClient != null)
+                ServiceClient.Disconnect(thisClientID);
+
+            if (ServiceClient != null && ServiceClient.ChannelFactory.State == CommunicationState.Faulted)
+            {
+                MessageBox.Show($"Ошибка подключения!");
+                ServiceClient = null;
+                return;
+            }
+
+            thisClientID = connect ? ServiceClient.Connect(thisClientID) : thisClientID;
+            color = connect ? ServiceClient.GetColor(uavs.Count) : color;
+
+            isMultipleuser = connect;
+
+            int 
+                k = 0,
+                step;
+
+            if (myUAVs.Count > 12) step = 5;
+            else step = 10;
+            foreach (var uav in myUAVs)
+            {
+                uav.ClientID = thisClientID;
+
+                uav.Color = System.Windows.Media.Color.FromArgb((byte)(color.A - (k++ * step)), color.R, color.G, color.B);
+            }
+
+            MessageBox.Show($"{color}");
+
+            uavs[0].Color = System.Windows.Media.Color.FromArgb(100, 0, 255, 0);
+            /*
+            uavs[1].ClientID = 32;
+            */
+
+            OnPropertyChanged("IsMultipleuser");
+            OnPropertyChanged("AllUAVBases");
+        }
+
+        #region Конверторы
         private SDangerLevel ConvertToDangerLevel(DangerLevel myDL)
         {
             SDangerLevel sDangerLevel = SDangerLevel.SafeLevel;
@@ -658,6 +729,7 @@ namespace Modelling_Client.Models
             Y = settings.Y,
             Z = settings.Z
         };
+        #endregion
 
         #region CallBack
         public void SendValuesCallBack(Dictionary<int, SUAVBase[]> data)
@@ -671,28 +743,22 @@ namespace Modelling_Client.Models
                 if (item.Key != thisClientID)
                     foreach (var uav in item.Value)
                     {
-                        UAVBase uavBase = new UAVBase
-                        {
-                            CanChange = false,
-                            ClientID = uav.ClientID,
-                            Color = uav.Color,
-                            DangerClientID = uav.DangerClientID,
-                            DangerID = uav.DangerID,
-                            DangerLevel = ConvertToDangerLevel(uav.DangerLevel),
-                            Settings = ConvertToUAVSettings(uav.Settings),
-                            CurrentSegment = ConvertToRouteSegment(uav.CurrentSegment),
-                            Route = new ObservableCollection<RouteSegment>()
-                        };
-
-                        foreach (var segment in uav.Route)
-                            uavBase.Route.Add(ConvertToRouteSegment(segment));
+                        UAVBase uavBase = ConvertToUAVBase(uav);
 
                         iter.UAVs.Add(uavBase);
+
+                        simulate = !(uav.DangerLevel == SDangerLevel.Crash || iterationCount >= currentIterationCount || simulate == false);    //  Нужно ли продолжать моделирование
                     }
 
             iterations.Add(iter);
+            
+            if (simulate)
+                Simulation();
 
-            Simulation();
+            uavs = iterations[iterations.Count - 1].UAVs;
+            OnPropertyChanged("Iterations");
+            OnPropertyChanged("AllUAVBases");
+            OnPropertyChanged("Simulate");
         }
 
         public void SendValuesCallBack1(string srt)

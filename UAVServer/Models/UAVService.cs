@@ -40,7 +40,7 @@ namespace UAVServer
                     operationContext = OperationContext.Current
                 };
 
-                Console.WriteLine($"{id} подключился");
+                Console.WriteLine($"{user.ID} подключился");
                 users.Add(user);
             }
             else
@@ -62,6 +62,7 @@ namespace UAVServer
             Random random = new Random();
             var color = new Color();
 
+            color.A = Convert.ToByte(random.Next(CountUAVs * step, 255));
             color.R = Convert.ToByte(random.Next(CountUAVs * step, 255));
             color.G = Convert.ToByte(random.Next(CountUAVs * step, 255));
             color.B = Convert.ToByte(random.Next(CountUAVs * step, 255));

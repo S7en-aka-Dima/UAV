@@ -23,7 +23,6 @@ namespace Modelling_Client.ViewModels
 {
     public class MainWindowViewModel : BaseViewModel
     {
-        private int ThisClientID;
         private UAVBase selectedUAV;
         private Modelling modelling;
         private RouteSegment selectedRouteSigment;
@@ -41,8 +40,6 @@ namespace Modelling_Client.ViewModels
             uavs = modelling.AllUAVBases;
             selectedUAV = uavs[0];
             segments = selectedUAV.Route;
-
-            Connect(false);
         }
 
         #region Поля
@@ -85,6 +82,7 @@ namespace Modelling_Client.ViewModels
         public void TestCommand()
         {
             string str = string.Empty;
+            modelling.ServiceClient.Disconnect(modelling.ThisClientID);
 
             MessageBox.Show($"{str}!");
         }
@@ -115,7 +113,7 @@ namespace Modelling_Client.ViewModels
         public ICommand<UAVBase> ResetSettings => new DelegateCommand<UAVBase>(SetToZero);
         public ICommand<UAVBase> RemoveUAV => new DelegateCommand<UAVBase>(DeleteUAV);
         public ICommand<UAVBase> SelectUAVSettings => new DelegateCommand<UAVBase>(GiveUAVSettings);
-        public ICommand<bool> ConnectToServer => new DelegateCommand<bool>(Connect);
+        public ICommand<bool> ConnectToServer => new DelegateCommand<bool>(modelling.Connect);
         public ICommand<bool> SaveFile => new DelegateCommand<bool>((par) =>
         {
             modelling.SaveSettingsIntoFile(par);
@@ -155,7 +153,7 @@ namespace Modelling_Client.ViewModels
         private void GiveUAVSettings(UAVBase uav)
         {
 #if DEBUG
-            MessageBox.Show(uav.Settings.ID.ToString() + " " + (uav.ClientID==ThisClientID));
+            MessageBox.Show(uav.Settings.ID.ToString() + " " + (uav.ClientID==modelling.ThisClientID));
 #endif
             selectedUAV = uav;
             OnPropertyChanged("SelectedUAV");
@@ -163,7 +161,7 @@ namespace Modelling_Client.ViewModels
         }
         private void AddSegmentIntoRout()
         {
-            if (selectedUAV.ClientID != ThisClientID) return;
+            if (selectedUAV.ClientID != modelling.ThisClientID) return;
 
             if (selectedUAV.Route.Count == 0)
             {
@@ -202,12 +200,12 @@ namespace Modelling_Client.ViewModels
         }
         public void IsMine()
         {
-            myUAV = selectedUAV.ClientID == ThisClientID;
+            myUAV = selectedUAV.ClientID == modelling.ThisClientID;
             OnPropertyChanged("MyUAV");
         }
         public void DeleteRouteSegment(RouteSegment segment)
         {
-            if (selectedUAV.ClientID != ThisClientID) return;
+            if (selectedUAV.ClientID != modelling.ThisClientID) return;
 
             if (selectedUAV.Route.Count == 1) return;
 
@@ -268,8 +266,9 @@ namespace Modelling_Client.ViewModels
                 for (int i = 0; i < num; i++)
                 {
                     UAVBase uav = new UAVBase();
-                    uav.ClientID = ThisClientID;
+                    uav.ClientID = modelling.ThisClientID;
                     uav.Settings.ID = uavs.Count + 1;
+                    uav.Color = modelling.UAVColor;
                     uavs.Add(uav);
                 }
             else if (uavs.Count <= Math.Abs(num) && uavs.Count != 0)
@@ -292,25 +291,6 @@ namespace Modelling_Client.ViewModels
 #if DEBUG
             //MessageBox.Show($"{GC.GetTotalMemory(true) / 1024 / 1024}");
 #endif
-        }
-        public void Connect(bool connect)
-        {
-            modelling.ServiceClient = new UAVServiceClient(new System.ServiceModel.InstanceContext(modelling));
-
-            ThisClientID = connect ? modelling.ServiceClient.Connect(ThisClientID) : 0;
-            Color color = connect ? modelling.ServiceClient.GetColor(uavs.Count) : Color.FromArgb(25, 0, 0, 0);
-
-            modelling.IsMultipleuser = connect;
-            modelling.ThisClientID = ThisClientID;
-
-            foreach (var uav in uavs)
-            {
-                uav.ClientID = ThisClientID;
-                uav.Color = color;
-            }
-
-            uavs[0].Color = Color.FromArgb(100, 0, 255, 0);
-            uavs[1].ClientID = 32;
         }
         public void DeleteUAV(UAVBase uav)
         {

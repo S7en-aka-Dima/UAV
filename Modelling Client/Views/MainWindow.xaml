@@ -547,6 +547,9 @@
                         ToolTip="Сбросить всё"
                         IsEnabled="{Binding Modelling.EnabledToChangeUAVs}"
                         Command="{Binding ResetAll}"/>
+                
+                <Separator/>
+                <TextBox ToolTip="Кол-во итераций" Text="{Binding Modelling.IterationCount}"/>
             </ToolBar>
         </StackPanel>
     </Grid>
