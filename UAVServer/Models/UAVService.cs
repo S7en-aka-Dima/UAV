@@ -46,7 +46,6 @@ namespace UAVServer
             else
                 Console.WriteLine($"{id} переподключился");
             
-
             return id;
         }
         public void Disconnect(int id)
@@ -92,7 +91,7 @@ namespace UAVServer
                 {
                     try
                     {
-                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(Iteration));
+                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(Dictionary<int, List<UAVBase>>));
                         xmlSerializer.Serialize(file, item.Value);
                     }
                     catch(Exception se)

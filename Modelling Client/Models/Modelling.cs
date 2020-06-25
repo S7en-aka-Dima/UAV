@@ -621,6 +621,7 @@ namespace Modelling_Client.Models
             List<SUAVBase> sUAVBases = new List<SUAVBase>();
 
             currentIterationCount++;
+
             /*
              * Моделирование
              * Использовать коллекцию myUAVs, изменять ЭТИ бпла
@@ -632,7 +633,10 @@ namespace Modelling_Client.Models
                 sUAVBases.Add(ConvertToUAVBase(items));
             */
 
-            ServiceClient.SendValues(sUAVBases.ToArray(), thisClientID);
+            if (currentIterationCount <= iterationCount)
+                ServiceClient.SendValues(sUAVBases.ToArray(), thisClientID);
+            else
+                ServiceClient.StopModeling();
         }
 
 #region Конверторы
