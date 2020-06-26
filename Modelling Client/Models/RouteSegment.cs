@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SUAVBase = Modelling_Client.UAVServiceHosting.UAVBase;
+using SRouteSegment = Modelling_Client.UAVServiceHosting.RouteSegment;
+using SUAVSettings = Modelling_Client.UAVServiceHosting.UAVSettings;
+using SDangerLevel = Modelling_Client.UAVServiceHosting.DangerLevel;
+using DangerLevel = Modelling_Client.Models.Перечисления.DangerLevel;
 
 namespace Modelling_Client.Models
 {
@@ -224,5 +229,8 @@ namespace Modelling_Client.Models
             get => speed[2];
             set { speed[2] = value; OnPropertyChanged("Speed"); }
         }
+
+        public static implicit operator RouteSegment(SRouteSegment routeSegment) => ConverterUAVClasses.Convert(routeSegment) as RouteSegment;
+        public static explicit operator SRouteSegment(RouteSegment routeSegment) => ConverterUAVClasses.Convert(routeSegment) as SRouteSegment;
     }
 }

@@ -1,6 +1,10 @@
 ﻿using Modelling_Client.Interfaces;
 using Modelling_Client.ViewModels;
-
+using SUAVBase = Modelling_Client.UAVServiceHosting.UAVBase;
+using SRouteSegment = Modelling_Client.UAVServiceHosting.RouteSegment;
+using SUAVSettings = Modelling_Client.UAVServiceHosting.UAVSettings;
+using SDangerLevel = Modelling_Client.UAVServiceHosting.DangerLevel;
+using DangerLevel = Modelling_Client.Models.Перечисления.DangerLevel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -231,5 +235,8 @@ namespace Modelling_Client.Models
                 OnPropertyChanged();
             }
         }
+
+        public static implicit operator UAVSettings(SUAVSettings settings ) => ConverterUAVClasses.Convert(settings) as UAVSettings;
+        public static explicit operator SUAVSettings(UAVSettings settings) => ConverterUAVClasses.Convert(settings) as SUAVSettings;
     }
 }

@@ -78,9 +78,12 @@ namespace Modelling_Client.Models
             uavs[0].DangerID = 1;
             uavs[0].DangerClientID = 32;
 #endif
-
+            int count = 1;
             foreach (var uav in uavs)
+            {
+                uav.Settings.ID = count++;
                 myUAVs.Add(uav);
+            }
 
             Connect(false);
         }
@@ -653,12 +656,10 @@ namespace Modelling_Client.Models
                 if (item.Key != thisClientID)
                     foreach (var uav in item.Value)
                     {
-                        UAVBase uavBase = ConverterUAVClasses.Convert(uav) as UAVBase;
-
-                        iter.UAVs.Add(uavBase);
+                        iter.UAVs.Add(uav);
 
                         if (uav.ClientID == thisClientID)
-                            myUAVs.Add(uavBase);
+                            myUAVs.Add(uav);
 
                         simulate = !(uav.DangerLevel == SDangerLevel.Crash || iterationCount >= currentIterationCount || simulate == false);    //  Нужно ли продолжать моделирование
                     }
@@ -697,16 +698,18 @@ namespace Modelling_Client.Models
 
             foreach (var uav in uavs)
             {
-                var uavBase = ConverterUAVClasses.Convert(uav) as UAVBase;
+                //var uavBase = ConverterUAVClasses.Convert(uav) as UAVBase;
                 
-                uavBase.ClientID = thisClientID;
-                uavBase.Color = color;
+                uav.ClientID = thisClientID;
+                uav.Color = color;
 
-                this.uavs.Add(uavBase);
-                myUAVs.Add(uavBase);
+                this.uavs.Add(uav);
+                myUAVs.Add(uav);
             }
 
             PutColor();
+            OnPropertyChanged("Iterations");
+            OnPropertyChanged("AllUAVBases");
         }
         #endregion
     }

@@ -113,7 +113,7 @@ namespace Modelling_Client.ViewModels
         public ICommand<UAVBase> ResetSettings => new DelegateCommand<UAVBase>(SetToZero);
         public ICommand<UAVBase> RemoveUAV => new DelegateCommand<UAVBase>(DeleteUAV);
         public ICommand<UAVBase> SelectUAVSettings => new DelegateCommand<UAVBase>(GiveUAVSettings);
-        public ICommand<bool> ConnectToServer => new DelegateCommand<bool>(modelling.Connect);
+        public ICommand<bool> ConnectToServer => new DelegateCommand<bool>(modelling.Connect, Modelling.EnabledToChangeUAVs);
         public ICommand<bool> SaveFile => new DelegateCommand<bool>((par) =>
         {
             modelling.SaveSettingsIntoFile(par);

@@ -9,6 +9,11 @@ using System.Windows.Media;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SUAVBase = Modelling_Client.UAVServiceHosting.UAVBase;
+using SRouteSegment = Modelling_Client.UAVServiceHosting.RouteSegment;
+using SUAVSettings = Modelling_Client.UAVServiceHosting.UAVSettings;
+using SDangerLevel = Modelling_Client.UAVServiceHosting.DangerLevel;
+using DangerLevel = Modelling_Client.Models.Перечисления.DangerLevel;
 
 namespace Modelling_Client.Models
 {
@@ -91,5 +96,8 @@ namespace Modelling_Client.Models
             get => currentSegment;
             set { currentSegment = value; OnPropertyChanged(); OnPropertyChanged("Route"); }
         }
+
+        public static implicit operator UAVBase(SUAVBase uav) => ConverterUAVClasses.Convert(uav) as UAVBase;
+        public static explicit operator SUAVBase(UAVBase uav) => ConverterUAVClasses.Convert(uav) as SUAVBase;
     }
 }
