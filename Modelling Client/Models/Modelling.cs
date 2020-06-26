@@ -235,7 +235,7 @@ namespace Modelling_Client.Models
                     k++;
             }
 
-            uavs[0].Color = System.Windows.Media.Color.FromArgb(100, 0, 255, 0);
+            myUAVs[0].Color = System.Windows.Media.Color.FromArgb(100, 0, 255, 0);
         }
         public void Connect(bool connect)
         {
@@ -618,8 +618,6 @@ namespace Modelling_Client.Models
         }
         private void Simulation()
         {
-            List<SUAVBase> sUAVBases = new List<SUAVBase>();
-
             currentIterationCount++;
 
             /*
@@ -630,144 +628,14 @@ namespace Modelling_Client.Models
 
             /*
             foreach (var items in myUAVs)
-                sUAVBases.Add(ConvertToUAVBase(items));
+                sUAVBases.Add(ConvertUAVBase(items));
             */
 
             if (currentIterationCount <= iterationCount)
-                ServiceClient.SendValues(sUAVBases.ToArray(), thisClientID);
+                ServiceClient.SendValues(ConverterUAVClasses.Convert(myUAVs) as SUAVBase[], thisClientID);
             else
                 ServiceClient.StopModeling();
         }
-
-#region Конверторы
-        private SDangerLevel ConvertToDangerLevel(DangerLevel myDL)
-        {
-            SDangerLevel sDangerLevel = SDangerLevel.SafeLevel;
-
-            switch(myDL)
-            {
-                case DangerLevel.SafeLevel:
-                    sDangerLevel = SDangerLevel.SafeLevel;
-                    break;
-
-                case DangerLevel.Crash:
-                    sDangerLevel = SDangerLevel.Crash;
-                    break;
-            }    
-
-            return sDangerLevel;
-        }
-        private DangerLevel ConvertToDangerLevel(SDangerLevel sDL)
-        {
-            DangerLevel DangerLevel = DangerLevel.SafeLevel;
-
-            switch (sDL)
-            {
-                case SDangerLevel.SafeLevel:
-                    DangerLevel = DangerLevel.SafeLevel;
-                    break;
-
-                case SDangerLevel.Crash:
-                    DangerLevel = DangerLevel.Crash;
-                    break;
-            }
-
-            return DangerLevel;
-        }
-        private SUAVBase ConvertToUAVBase(UAVBase MyUAV)
-        {
-            var uav = new SUAVBase
-            {
-                CanChange = false,
-                ClientID = MyUAV.ClientID,
-                Color = MyUAV.Color,
-                DangerClientID = MyUAV.DangerClientID,
-                DangerID = MyUAV.DangerID,
-                DangerLevel = ConvertToDangerLevel(MyUAV.DangerLevel),
-                Settings = new SUAVSettings
-                {
-                    ID = MyUAV.Settings.ID,
-                    MaxSpeed = MyUAV.Settings.MaxSpeed,
-                    MinSpeed = MyUAV.Settings.MinSpeed,
-                    Accel = MyUAV.Settings.Accel,
-                    Speed = MyUAV.Settings.Speed,
-                    Radius = MyUAV.Settings.Radius,
-                    X = MyUAV.Settings.X,
-                    Y = MyUAV.Settings.Y,
-                    Z = MyUAV.Settings.Z
-                },
-                CurrentSegment = ConvertToRouteSegment(MyUAV.CurrentSegment)
-            };
-
-            for (int i = 0; i < MyUAV.Route.Count; i++)
-                uav.Route[i] = ConvertToRouteSegment(MyUAV.Route[0]);
-
-            return uav;
-        }
-        private UAVBase ConvertToUAVBase(SUAVBase MyUAV)
-        {
-            var uav = new UAVBase
-            {
-                CanChange = false,
-                ClientID = MyUAV.ClientID,
-                Color = MyUAV.Color,
-                DangerClientID = MyUAV.DangerClientID,
-                DangerID = MyUAV.DangerID,
-                DangerLevel = ConvertToDangerLevel(MyUAV.DangerLevel),
-                Settings = ConvertToUAVSettings(MyUAV.Settings),
-                CurrentSegment = ConvertToRouteSegment(MyUAV.CurrentSegment)
-            };
-
-            for (int i = 0; i < MyUAV.Route.Length; i++)
-                uav.Route[i] = ConvertToRouteSegment(MyUAV.Route[0]);
-
-            return uav;
-        }
-        private SRouteSegment ConvertToRouteSegment(RouteSegment segment) => new SRouteSegment
-        {
-            DiscretionToChange = segment.DiscretionToChange,
-            EndPoint = segment.EndPoint,
-            StartPoint = segment.StartPoint,
-            Speed = segment.Speed,
-            SpeedX = segment.SpeedX,
-            SpeedY = segment.SpeedY,
-            SpeedZ = segment.SpeedZ
-        };
-        private RouteSegment ConvertToRouteSegment(SRouteSegment segment) => new RouteSegment
-        {
-            DiscretionToChange = segment.DiscretionToChange,
-            EndPoint = segment.EndPoint,
-            StartPoint = segment.StartPoint,
-            Speed = segment.Speed,
-            SpeedX = segment.SpeedX,
-            SpeedY = segment.SpeedY,
-            SpeedZ = segment.SpeedZ
-        };
-        private SUAVSettings ConvertToUAVSettings(UAVSettings settings) => new SUAVSettings
-        {
-            ID = settings.ID,
-            MaxSpeed = settings.MaxSpeed,
-            MinSpeed = settings.MinSpeed,
-            Accel = settings.Accel,
-            Speed = settings.Speed,
-            Radius = settings.Radius,
-            X = settings.X,
-            Y = settings.Y,
-            Z = settings.Z
-        };
-        private UAVSettings ConvertToUAVSettings(SUAVSettings settings) => new UAVSettings
-        {
-            ID = settings.ID,
-            MaxSpeed = settings.MaxSpeed,
-            MinSpeed = settings.MinSpeed,
-            Accel = settings.Accel,
-            Speed = settings.Speed,
-            Radius = settings.Radius,
-            X = settings.X,
-            Y = settings.Y,
-            Z = settings.Z
-        };
-#endregion
 
 #region CallBack
         public void SendValuesCallBack(Dictionary<int, SUAVBase[]> data)
@@ -785,7 +653,7 @@ namespace Modelling_Client.Models
                 if (item.Key != thisClientID)
                     foreach (var uav in item.Value)
                     {
-                        UAVBase uavBase = ConvertToUAVBase(uav);
+                        UAVBase uavBase = ConverterUAVClasses.Convert(uav) as UAVBase;
 
                         iter.UAVs.Add(uavBase);
 
@@ -825,16 +693,20 @@ namespace Modelling_Client.Models
         {
             iterations.Clear();
             this.uavs.Clear();
+            myUAVs.Clear();
 
             foreach (var uav in uavs)
             {
-                var uavBase = ConvertToUAVBase(uav);
+                var uavBase = ConverterUAVClasses.Convert(uav) as UAVBase;
                 
                 uavBase.ClientID = thisClientID;
                 uavBase.Color = color;
 
                 this.uavs.Add(uavBase);
+                myUAVs.Add(uavBase);
             }
+
+            PutColor();
         }
         #endregion
     }

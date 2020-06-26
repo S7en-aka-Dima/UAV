@@ -78,6 +78,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IGPS.cs" />
+    <Compile Include="Models\ConverterUAVClasses.cs" />
     <Compile Include="Models\GPS.cs" />
     <Compile Include="Models\Iteration.cs" />
     <Compile Include="Models\Modelling.cs" />

@@ -967,5 +967,10 @@ namespace Modelling_Client.UAVServiceHosting {
         public System.Threading.Tasks.Task RepeatModellingAsync(System.DateTime dateTimeModelling, int modellingNum, int iterationNum) {
             return base.Channel.RepeatModellingAsync(dateTimeModelling, modellingNum, iterationNum);
         }
+
+        internal void SendValues(Array array, int thisClientID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
