@@ -797,6 +797,24 @@ namespace Modelling_Client.UAVServiceHosting {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUAVService/GetColor", ReplyAction="http://tempuri.org/IUAVService/GetColorResponse")]
         System.Threading.Tasks.Task<System.Windows.Media.Color> GetColorAsync(int CountUAVs);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUAVService/GetOldIteration", ReplyAction="http://tempuri.org/IUAVService/GetOldIterationResponse")]
+        System.Collections.Generic.Dictionary<int, Modelling_Client.UAVServiceHosting.UAVBase[]> GetOldIteration(System.DateTime dateTimeModelling, int modellingNum, int iterationNum);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUAVService/GetOldIteration", ReplyAction="http://tempuri.org/IUAVService/GetOldIterationResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<int, Modelling_Client.UAVServiceHosting.UAVBase[]>> GetOldIterationAsync(System.DateTime dateTimeModelling, int modellingNum, int iterationNum);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUAVService/CanRepeatModelling", ReplyAction="http://tempuri.org/IUAVService/CanRepeatModellingResponse")]
+        bool CanRepeatModelling(System.DateTime dateTimeModelling, int modellingNum, int iterationNum);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUAVService/CanRepeatModelling", ReplyAction="http://tempuri.org/IUAVService/CanRepeatModellingResponse")]
+        System.Threading.Tasks.Task<bool> CanRepeatModellingAsync(System.DateTime dateTimeModelling, int modellingNum, int iterationNum);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUAVService/RepeatModelling", ReplyAction="http://tempuri.org/IUAVService/RepeatModellingResponse")]
+        void RepeatModelling(System.DateTime dateTimeModelling, int modellingNum, int iterationNum);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUAVService/RepeatModelling", ReplyAction="http://tempuri.org/IUAVService/RepeatModellingResponse")]
+        System.Threading.Tasks.Task RepeatModellingAsync(System.DateTime dateTimeModelling, int modellingNum, int iterationNum);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -813,6 +831,9 @@ namespace Modelling_Client.UAVServiceHosting {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IUAVService/Stop")]
         void Stop();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IUAVService/RepeatOldModelling")]
+        void RepeatOldModelling(Modelling_Client.UAVServiceHosting.UAVBase[] uavs);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -921,6 +942,30 @@ namespace Modelling_Client.UAVServiceHosting {
         
         public System.Threading.Tasks.Task<System.Windows.Media.Color> GetColorAsync(int CountUAVs) {
             return base.Channel.GetColorAsync(CountUAVs);
+        }
+        
+        public System.Collections.Generic.Dictionary<int, Modelling_Client.UAVServiceHosting.UAVBase[]> GetOldIteration(System.DateTime dateTimeModelling, int modellingNum, int iterationNum) {
+            return base.Channel.GetOldIteration(dateTimeModelling, modellingNum, iterationNum);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<int, Modelling_Client.UAVServiceHosting.UAVBase[]>> GetOldIterationAsync(System.DateTime dateTimeModelling, int modellingNum, int iterationNum) {
+            return base.Channel.GetOldIterationAsync(dateTimeModelling, modellingNum, iterationNum);
+        }
+        
+        public bool CanRepeatModelling(System.DateTime dateTimeModelling, int modellingNum, int iterationNum) {
+            return base.Channel.CanRepeatModelling(dateTimeModelling, modellingNum, iterationNum);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CanRepeatModellingAsync(System.DateTime dateTimeModelling, int modellingNum, int iterationNum) {
+            return base.Channel.CanRepeatModellingAsync(dateTimeModelling, modellingNum, iterationNum);
+        }
+        
+        public void RepeatModelling(System.DateTime dateTimeModelling, int modellingNum, int iterationNum) {
+            base.Channel.RepeatModelling(dateTimeModelling, modellingNum, iterationNum);
+        }
+        
+        public System.Threading.Tasks.Task RepeatModellingAsync(System.DateTime dateTimeModelling, int modellingNum, int iterationNum) {
+            return base.Channel.RepeatModellingAsync(dateTimeModelling, modellingNum, iterationNum);
         }
     }
 }

@@ -19,18 +19,17 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8732" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:8732/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="2abb6601-c3fe-4616-8cf2-b129ee7e1a66" SourceId="1" SourceUrl="http://localhost:8732/?disco" />
-    <MetadataFile FileName="item6.xsd" MetadataType="Schema" ID="fff733d8-3d6c-4f77-98f5-65658c5d408e" SourceId="1" SourceUrl="http://localhost:8732/?xsd=xsd1" />
-    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="2bce0ea2-9b98-4589-8d42-c3821cb1a7fe" SourceId="1" SourceUrl="http://localhost:8732/?xsd=xsd5" />
-    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="096092c2-e1c6-44ba-8ffe-10df60d20db4" SourceId="1" SourceUrl="http://localhost:8732/?xsd=xsd0" />
-    <MetadataFile FileName="UAVService.wsdl" MetadataType="Wsdl" ID="926a6839-fa69-4f07-ab19-138a0aa29ad9" SourceId="1" SourceUrl="http://localhost:8732/?wsdl" />
-    <MetadataFile FileName="item4.xsd" MetadataType="Schema" ID="8473921b-88a4-4320-acbb-e6a211682c9e" SourceId="1" SourceUrl="http://localhost:8732/?xsd=xsd2" />
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="7aafaea1-c35f-4d74-82b6-5f6d1d2b2676" SourceId="1" SourceUrl="http://localhost:8732/?xsd=xsd3" />
-    <MetadataFile FileName="item5.xsd" MetadataType="Schema" ID="6df08302-fcd7-4350-8e27-94fb7cc4c7e1" SourceId="1" SourceUrl="http://localhost:8732/?xsd=xsd4" />
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="65ad42a2-387e-4b63-8bc4-8da523866188" SourceId="1" SourceUrl="http://localhost:8732/?xsd=xsd6" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="1c440b3f-5410-495f-a827-2ba5a989061b" SourceId="1" SourceUrl="http://localhost:8732/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="0057a8d0-26a6-46d0-bd39-efd78a207346" SourceId="1" SourceUrl="http://localhost:8732/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="654a62ab-3f11-49da-9f1f-505a583a40b3" SourceId="1" SourceUrl="http://localhost:8732/mex" />
+    <MetadataFile FileName="Modelling_Client.Models.xsd" MetadataType="Schema" ID="1c43c4de-a425-4883-bbf9-11f0eaac8de7" SourceId="1" SourceUrl="http://localhost:8732/mex" />
+    <MetadataFile FileName="Modelling_Client.ViewModels.xsd" MetadataType="Schema" ID="4eb30b1b-01c5-43a4-a464-241e541b9ea5" SourceId="1" SourceUrl="http://localhost:8732/mex" />
+    <MetadataFile FileName="System.Windows.Media.xsd" MetadataType="Schema" ID="4dc3c305-cc43-4c1d-83db-1a976b23dfd4" SourceId="1" SourceUrl="http://localhost:8732/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="2b502e96-81a5-44b1-9883-667540b38e3f" SourceId="1" SourceUrl="http://localhost:8732/mex" />
+    <MetadataFile FileName="Modelling_Client.Models.%D0%9F%D0%B5%D1%80%D0%B5%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F.xsd" MetadataType="Schema" ID="433f4bc9-8751-4732-8e3c-1f13a7459f34" SourceId="1" SourceUrl="http://localhost:8732/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

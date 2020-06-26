@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Modelling_Client.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Modelling_Client.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:8732/?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Windows.Media" />
-  <xs:import schemaLocation="http://localhost:8732/?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Modelling_Client.Models.%D0%9F%D0%B5%D1%80%D0%B5%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F" />
-  <xs:import schemaLocation="http://localhost:8732/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Modelling_Client.ViewModels" />
-  <xs:import schemaLocation="http://localhost:8732/?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/System.Windows.Media" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Modelling_Client.Models.%D0%9F%D0%B5%D1%80%D0%B5%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Modelling_Client.ViewModels" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:complexType name="ArrayOfArrayOfUAVBase">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfUAVBase" nillable="true" type="tns:ArrayOfUAVBase" />

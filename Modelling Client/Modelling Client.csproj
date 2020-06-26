@@ -130,31 +130,31 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Connected Services\UAVServiceHosting\item.xsd">
+    <None Include="Connected Services\UAVServiceHosting\Arrays.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\UAVServiceHosting\item1.xsd">
+    <None Include="Connected Services\UAVServiceHosting\Modelling_Client.Models.%25D0%259F%25D0%25B5%25D1%2580%25D0%25B5%25D1%2587%25D0%25B8%25D1%2581%25D0%25BB%25D0%25B5%25D0%25BD%25D0%25B8%25D1%258F.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\UAVServiceHosting\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\UAVServiceHosting\item3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\UAVServiceHosting\item4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\UAVServiceHosting\item5.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\UAVServiceHosting\item6.xsd">
+    <None Include="Connected Services\UAVServiceHosting\Modelling_Client.Models.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\UAVServiceHosting\Modelling_Client.UAVServiceHosting.UAVBase.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\UAVServiceHosting\UAVService.wsdl" />
+    <None Include="Connected Services\UAVServiceHosting\Modelling_Client.ViewModels.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UAVServiceHosting\service.wsdl" />
+    <None Include="Connected Services\UAVServiceHosting\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UAVServiceHosting\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UAVServiceHosting\System.Windows.Media.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\System.Windows.Media.Color.datasource" />
     <None Include="Properties\Settings.settings">
@@ -213,9 +213,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\UAVServiceHosting\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\UAVServiceHosting\item.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\UAVServiceHosting\configuration91.svcinfo" />

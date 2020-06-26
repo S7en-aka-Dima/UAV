@@ -820,6 +820,22 @@ namespace Modelling_Client.Models
         {
             simulate = false;
         }
-#endregion
+
+        public void RepeatOldModelling(SUAVBase[] uavs)
+        {
+            iterations.Clear();
+            this.uavs.Clear();
+
+            foreach (var uav in uavs)
+            {
+                var uavBase = ConvertToUAVBase(uav);
+                
+                uavBase.ClientID = thisClientID;
+                uavBase.Color = color;
+
+                this.uavs.Add(uavBase);
+            }
+        }
+        #endregion
     }
 }

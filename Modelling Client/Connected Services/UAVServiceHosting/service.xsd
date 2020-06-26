@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:8732/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Modelling_Client.Models" />
-  <xs:import schemaLocation="http://localhost:8732/?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Windows.Media" />
-  <xs:import schemaLocation="http://localhost:8732/?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Modelling_Client.Models" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/System.Windows.Media" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="Connect">
     <xs:complexType>
       <xs:sequence>
@@ -96,10 +96,56 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetOldIteration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="dateTimeModelling" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="modellingNum" type="xs:int" />
+        <xs:element minOccurs="0" name="iterationNum" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOldIterationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetOldIterationResult" nillable="true" type="q5:ArrayOfKeyValueOfintArrayOfUAVBase12cqvAiQ" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CanRepeatModelling">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="dateTimeModelling" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="modellingNum" type="xs:int" />
+        <xs:element minOccurs="0" name="iterationNum" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CanRepeatModellingResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CanRepeatModellingResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RepeatModelling">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="dateTimeModelling" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="modellingNum" type="xs:int" />
+        <xs:element minOccurs="0" name="iterationNum" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RepeatModellingResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="SendValuesCallBack">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="data" nillable="true" type="q5:ArrayOfKeyValueOfintArrayOfUAVBase12cqvAiQ" />
+        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="data" nillable="true" type="q6:ArrayOfKeyValueOfintArrayOfUAVBase12cqvAiQ" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -118,6 +164,13 @@
   <xs:element name="Stop">
     <xs:complexType>
       <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RepeatOldModelling">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Modelling_Client.Models" minOccurs="0" name="uavs" nillable="true" type="q7:ArrayOfUAVBase" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
 </xs:schema>
