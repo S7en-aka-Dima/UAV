@@ -21,7 +21,9 @@ namespace UAVServer
         List<UAVUser> users = new List<UAVUser>();
         Dictionary<int, List<UAVBase>> uavByUserID;
 
-        int iterations = 1;
+        int
+            iterations = 1,
+            modellings = 0;
         private int nextID = 1;
 
 
@@ -73,26 +75,32 @@ namespace UAVServer
         {
             string message = await Task.Run(() => SaveIterations(data));
 
-            Console.WriteLine($"{message}"); 
+            Console.WriteLine($"{message}");
+        }
+        private async Task<Dictionary<int, List<UAVBase>>> GetOldIterationAsync(DateTime dateTimeModelling, int modellingNum, int iterationNum)
+        {
+            return await Task<Dictionary<int, List<UAVBase>>>.Run(() => GetOldIteration(dateTimeModelling, modellingNum, iterationNum));
         }
         private string SaveIterations(Dictionary<int, List<UAVBase>> data)
         {
             string path = string.Empty;
 
             if (!Directory.Exists($@"{DateTime.Now.ToShortDateString()}"))
+            {
                 iterations = 1;
-                
-            Directory.CreateDirectory($@"{DateTime.Now.ToShortDateString()}\{iterations}");
+
+                Directory.CreateDirectory($@"{DateTime.Now.ToShortDateString()}\{modellings}");
+            }
 #if DEBUG
             Console.WriteLine($@"{DateTime.Now.ToShortDateString()}\{iterations}");
 #endif
-            foreach (var item in data)
-                using (var file = new FileStream($@"{DateTime.Now.ToShortDateString()}\{iterations}\{item.Key}.xml", FileMode.Create))
+            //foreach (var item in data)
+                using (var file = new FileStream($@"{DateTime.Now.ToShortDateString()}\{modellings}\{iterations}.xml", FileMode.Create))
                 {
                     try
                     {
                         XmlSerializer xmlSerializer = new XmlSerializer(typeof(Dictionary<int, List<UAVBase>>));
-                        xmlSerializer.Serialize(file, item.Value);
+                        xmlSerializer.Serialize(file, data);
                     }
                     catch(Exception se)
                     {
@@ -108,10 +116,11 @@ namespace UAVServer
         #region Функции для обеспечения моделирования
         public void ForcedStart()
         {
+            uavByUserID.Clear();
+
             foreach (var user in users)
                 user.operationContext.GetCallbackChannel<IServiceCallBack>().GetStart();
         }
-
         public void LetsStart(int id)
         {
             if (id == 0) return;
@@ -128,15 +137,73 @@ namespace UAVServer
                 else return;
             }
 
-            if(users.Count == isReady)
-                foreach (var user in users)
-                    user.operationContext.GetCallbackChannel<IServiceCallBack>().GetStart();
-        }
+            if (users.Count == isReady)
+            {
+                ForcedStart();
 
+                modellings++;
+            }
+        }
         public void StopModeling()
         {
             foreach (var user in users)
                 user.operationContext.GetCallbackChannel<IServiceCallBack>().Stop();
+        }
+
+        public bool CanRepeatModelling(DateTime dateTimeModelling, int modellingNum, int iterationNum)
+        {
+            uavByUserID.Clear();
+            GetOldIteration($@"{dateTimeModelling.ToShortDateString()}\{modellingNum}\{iterationNum}.xml");
+
+            return uavByUserID != null && users.Count >= uavByUserID.Keys.Count;
+        }
+        public void RepeatModelling(DateTime dateTimeModelling, int modellingNum, int iterationNum)
+        {
+            if (!CanRepeatModelling(dateTimeModelling, modellingNum, iterationNum))
+                return;
+
+            for (int i = 0; i < users.Count; i++)
+                users[i].operationContext.GetCallbackChannel<IServiceCallBack>().RepeatOldModelling(uavByUserID[i]);
+        }
+        public Dictionary<int, List<UAVBase>> GetOldIteration(DateTime dateTimeModelling, int modellingNum, int iterationNum)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Dictionary<int, List<UAVBase>>));
+            try
+            {
+                using (var file = new FileStream($@"{dateTimeModelling.ToShortDateString()}\{modellingNum}\{iterationNum}.xml", FileMode.Open))
+                {
+                    uavByUserID = xmlSerializer.Deserialize(file) as Dictionary<int, List<UAVBase>>;
+                }
+            }
+            catch (FileNotFoundException fnfe)
+            {
+                Console.WriteLine(
+                    $"{fnfe.Message}\n" +
+                    $"Файл {fnfe.FileName} не найден, невозможная передать данные!");
+
+                uavByUserID = null;
+            }
+
+            return uavByUserID;
+        }
+        public void GetOldIteration(string path)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Dictionary<int, List<UAVBase>>));
+            try
+            {
+                using (var file = new FileStream($@"{path}", FileMode.Open))
+                {
+                    uavByUserID = xmlSerializer.Deserialize(file) as Dictionary<int, List<UAVBase>>;
+                }
+            }
+            catch (FileNotFoundException fnfe)
+            {
+                Console.WriteLine(
+                    $"{fnfe.Message}\n" +
+                    $"Файл {fnfe.FileName} не найден, невозможная передать данные!");
+
+                uavByUserID = null;
+            }
         }
 
         public List<List<UAVBase>> GetData(int id)
@@ -151,7 +218,6 @@ namespace UAVServer
 
             return allData;
         }
-
         public List<List<UAVBase>> GetAllData()
         {
             List<List<UAVBase>> allData = new List<List<UAVBase>>();
@@ -165,7 +231,6 @@ namespace UAVServer
         public void SendValues(List<UAVBase> uav, int id)
         {
             if (id == 0) return;
-
 
             if(uavByUserID == null)
                 uavByUserID = new Dictionary<int, List<UAVBase>>();

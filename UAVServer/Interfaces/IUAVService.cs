@@ -74,6 +74,15 @@ namespace UAVServer
 
         [OperationContract]
         Color GetColor(int CountUAVs = 0);
+
+        [OperationContract]
+        Dictionary<int, List<UAVBase>> GetOldIteration(DateTime dateTimeModelling, int modellingNum, int iterationNum);
+
+        [OperationContract]
+        bool CanRepeatModelling(DateTime dateTimeModelling, int modellingNum, int iterationNum);
+
+        [OperationContract]
+        void RepeatModelling(DateTime dateTimeModelling, int modellingNum, int iterationNum);
     }
 
     [ServiceContract]
@@ -94,5 +103,8 @@ namespace UAVServer
 
         [OperationContract(IsOneWay = true)]
         void Stop();
+
+        [OperationContract(IsOneWay = true)]
+        void RepeatOldModelling(List<UAVBase> uavs);
     }
 }
