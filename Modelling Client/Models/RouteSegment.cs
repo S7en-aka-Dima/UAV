@@ -233,4 +233,42 @@ namespace Modelling_Client.Models
         public static implicit operator RouteSegment(SRouteSegment routeSegment) => ConverterUAVClasses.Convert(routeSegment) as RouteSegment;
         public static explicit operator SRouteSegment(RouteSegment routeSegment) => ConverterUAVClasses.Convert(routeSegment) as SRouteSegment;
     }
+    public class Course
+    {
+        ArgumentException notEVectException = new ArgumentException("Курс - единичный вектор");
+        double _x, _y;
+        public double X
+        {
+            get => _x;
+        }
+        public double Y
+        {
+            get => _y;
+        }
+        public void SetCourse(double x, double y)
+        {
+            double len = x * x + y * y;
+            if (Math.Abs(x) <= 1 && Math.Abs(y) <= 1 && len <= 1 + 0.1 && len >= 1 - 0.1)
+            {
+                _x = x; _y = y;
+                return;
+            }
+            throw notEVectException;
+        }
+
+        public Course() { SetCourse(1, 0); }
+
+        public static Course CalculateCourse(double start_x, double start_y, double end_x, double end_y) //в роутсигмент, не делать статическим
+        {
+            double dx = end_x - start_x;
+            double dy = end_y - start_y;
+            if (dx == 0 && dy == 0)
+                return null;
+
+            double len = Math.Sqrt(dx * dx + dy * dy);
+            var course = new Course();
+            course.SetCourse(dx / len, dy / len);
+            return course;
+        }
+    }
 }

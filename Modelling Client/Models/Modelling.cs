@@ -5,6 +5,7 @@ using Modelling_Client.Models.Перечисления;
 using Modelling_Client.UAVServiceHosting;
 using System.ServiceModel;
 using Modelling_Client.ViewModels;
+using Modelling_Client.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,6 +28,7 @@ using SUAVSettings = Modelling_Client.UAVServiceHosting.UAVSettings;
 using SDangerLevel = Modelling_Client.UAVServiceHosting.DangerLevel;
 using DangerLevel = Modelling_Client.Models.Перечисления.DangerLevel;
 using System.ServiceModel.Channels;
+using System.Windows.Shapes;
 
 namespace Modelling_Client.Models
 {
@@ -84,6 +86,14 @@ namespace Modelling_Client.Models
                 uav.Settings.ID = count++;
                 myUAVs.Add(uav);
             }
+
+#region Моделирование
+            // Добавить соответствующий пункт моделирования из программы Максима
+            // преобразовать переменные, подогнать под имеющиеся модели и представления
+            // придумать куда перенести класс-файл Control Generate Modul, так как в нём тоже есть моделирование и очень много!!!
+            // либо перенести из CGM сюда
+#endregion
+
 
             Connect(false);
         }
@@ -619,9 +629,12 @@ namespace Modelling_Client.Models
 
             return enumElement.ToString();
         }
+
         private void Simulation()
         {
             currentIterationCount++;
+
+            //int i = 1;
 
             /*
              * Моделирование
@@ -629,18 +642,170 @@ namespace Modelling_Client.Models
              * Для отрисовки других использовать uavs, где значения нужно будет менять начиная с [myUAVs.Count - 1]
              */
 
+            //сюда добавить расчёты параметров движения
+            //из UAVBase(UAVFriendly) и Course
+            //возможно что-то из Control_Generation_Module  
+
+            #region UAVBase - подставить переменные
+
+            for (int i = 1; i < myUAVs.Count; ++i)
+            {
+                Course();     //определение направления движения
+
+                SetCourse(myUAVs[i].CurrentSegment.StartX, myUAVs[i].CurrentSegment.StartY);
+
+                CalculateCourse(myUAVs[i].CurrentSegment.StartX, myUAVs[i].CurrentSegment.StartY, myUAVs[i].CurrentSegment.EndX, myUAVs[i].CurrentSegment.EndY);
+
+                double XAffter = myUAVs[i].CurrentSegment.StartX + 2 * (myUAVs[i].Settings.Speed + myUAVs[i].Settings.Radius) * course.X;     //для определения направления движения БПЛА
+                double YAffter = myUAVs[i].CurrentSegment.StartY + 2 * (myUAVs[i].Settings.Speed + myUAVs[i].Settings.Radius) * course.Y;
+
+                //public UAVStatus Status { get; protected set; } = UAVStatus.Normal;     //для статусов, пока их нет - не нужно
+
+                Move();     //расчёт перемещения аппарата
+
+                GetDuration(UAVBase uav1, UAVBase uav2);     //расчёт расстояния между аппаратами
+
+                Check(UAVBase uav1, UAVBase uav2);     //проверка столкновения одного БПЛА и каждого другого
+            }
+
+            /*
+
+            public Course();     //определение направления движения
+            
+            public void SetCourse(double x, double y);
+            
+            public static Course CalculateCourse (double start_x, double start_y, double end_x, double end_y);
+
+            double XAffter = X + 2 * (Speed + Radius) * course.X;     //для определения направления движения БПЛА
+            double YAffter = Y + 2 * (Speed + Radius) * course.Y;
+
+            //public UAVStatus Status { get; protected set; } = UAVStatus.Normal;     //для статусов, пока их нет - не нужно
+
+            Move();     //расчёт перемещения аппарата
+
+            GetDuration(UAVBase uav1, UAVBase uav2);     //расчёт расстояния между аппаратами
+
+            Check(UAVBase uav1, UAVBase uav2);     //проверка столкновения одного БПЛА и каждого другого
+
+            */
+            #endregion
+
+            #region Course - разобрать, порядок и переменные (поменять местами с UAVBase)
+            /*
+
+
+
+            */
+            #endregion
+
             /*
             foreach (var items in myUAVs)
                 sUAVBases.Add(ConvertUAVBase(items));
             */
-
             if (currentIterationCount <= iterationCount)
                 ServiceClient.SendValues(ConverterUAVClasses.Convert(myUAVs) as SUAVBase[], thisClientID);
             else
                 ServiceClient.StopModeling();
         }
 
-#region CallBack
+        #region CalcMoveUAV - разобрать порядок и подставить нужные переменные
+        
+        public void SetCourse(double x, double y)
+        {
+            double len = x * x + y * y;
+            if(Math.Abs(x) <= 1 && Math.Abs(y) <= 1 && len <= 1 + 0.1 && len >= 1 - 0.1)
+            {
+                _x = x; _y = y;
+                return;
+            }
+            throw notEVectException;
+        }
+        
+        public Course() { SetCourse(1, 0); }
+
+        public static Course CalculateCourse (double start_x, double start_y, double end_x, double end_y) //в роутсигмент, не делать статическим
+        {
+            double dx = end_x - start_x;
+            double dy = end_y - start_y;
+            if (dx == 0 && dy == 0)
+                return null;
+
+            double len = Math.Sqrt(dx*dx + dy*dy);
+            var course = new Course();
+            course.SetCourse(dx / len, dy / len);
+            return course;
+        }
+        
+        public static bool Check(UAVBase uav1, UAVBase uav2)
+        {
+            if (uav1 == uav2) return false;
+
+            double critical_len = uav1.Radius + uav2.Radius;
+            double dX = uav1.X - uav2.X;
+            double dY = uav1.Y - uav2.Y;
+            double len = Math.Sqrt(dX * dX + dY * dY);
+
+            if (len <= critical_len)
+            {
+                uav1.Status = UAVStatus.Crash;
+                uav2.Status = UAVStatus.Crash;
+                return true;
+            }
+            return false;
+        }
+
+        public virtual void Move()
+        {
+            // Можно ли шагнуть?
+            if (_track.Length == SegmentIdCurrent + 1)
+            {
+                Status = UAVStatus.Stoped;
+                return;
+            }
+            if (Status == UAVStatus.Stoped || Status == UAVStatus.Crash || course == null)
+            {
+                return;
+            }
+
+            double beforStepX = _track[SegmentIdCurrent].End.X - X;
+            double beforStepY = _track[SegmentIdCurrent].End.Y - Y;
+
+            // Шаг
+            try { Speed += Accell; } catch (UAV_Settings.UAV_Exception.UAV_State_Param_Overflow) { }
+            X += course.X * Speed;
+            Y += course.Y * Speed;
+            StepCounter++;
+
+            double afterStepX = _track[SegmentIdCurrent].End.X - X;
+            double afterStepY = _track[SegmentIdCurrent].End.Y - Y;
+
+            if (beforStepX * afterStepX < 0 || beforStepY * afterStepY < 0 || beforStepX * afterStepX == 0 && beforStepY * afterStepY == 0) {
+                SegmentIdCurrent++;
+                try {
+                    Speed = _track[SegmentIdCurrent].Start.Speed;
+                    SpeedStart = Speed;
+                    Accell = 0;
+                    //course = _track[SegmentIdCurrent].course;
+                    course = Course.CalculateCourse(X, Y, _track[SegmentIdCurrent].End.X, _track[SegmentIdCurrent].End.Y);
+                }
+
+                catch {
+                    Status = UAVStatus.Stoped;
+                };
+            };
+        }
+
+        public static double GetDuration(UAVBase uav1, UAVBase uav2)
+        {
+            double dX = uav1.X - uav2.X;
+            double dY = uav1.Y - uav2.Y;
+            return Math.Sqrt(dX * dX + dY * dY);
+        }
+
+
+        #endregion
+
+        #region CallBack
         public void SendValuesCallBack(Dictionary<int, SUAVBase[]> data)
         {
             var iter = new Iteration();

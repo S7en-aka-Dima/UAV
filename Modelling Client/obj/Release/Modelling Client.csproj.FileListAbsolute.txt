@@ -28,3 +28,33 @@ F:\Мои приложения\UAV\Modelling Client\obj\Release\Modelling Client
 F:\Мои приложения\UAV\Modelling Client\obj\Release\Modelling Client.exe
 F:\Мои приложения\UAV\Modelling Client\obj\Release\Modelling Client.pdb
 F:\Мои приложения\UAV\Modelling Client\obj\Release\Modelling Client.csproj.ResolveComReference.cache
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\bin\Release\Modelling Client.exe.config
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\bin\Release\Modelling Client.exe
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\bin\Release\Modelling Client.pdb
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\bin\Release\DevExpress.Mvvm.dll
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\bin\Release\DevExpress.Mvvm.UI.dll
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\bin\Release\Microsoft.Expression.Interactions.dll
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\bin\Release\System.Windows.Interactivity.dll
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\bin\Release\DevExpress.Mvvm.pdb
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\bin\Release\DevExpress.Mvvm.UI.pdb
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\bin\Release\Microsoft.Expression.Interactions.xml
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\bin\Release\System.Windows.Interactivity.xml
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\Modelling Client.csprojAssemblyReference.cache
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\Modelling Client.csproj.ResolveComReference.cache
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\Словари WPF\SettingsDictionary.baml
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\Views\MainWindow.g.cs
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\Views\PrimaryRadar.g.cs
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\App.g.cs
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\GeneratedInternalTypeHelper.g.cs
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\Modelling Client_MarkupCompile.cache
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\Modelling Client_MarkupCompile.lref
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\App.baml
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\Views\MainWindow.baml
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\Views\PrimaryRadar.baml
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\Modelling Client.g.resources
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\Modelling_Client.Properties.Resources.resources
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\Modelling Client.csproj.GenerateResource.cache
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\Modelling Client.csproj.CoreCompileInputs.cache
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\Modelling Client.csproj.CopyComplete
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\Modelling Client.exe
+C:\Users\Dima\OneDrive\!!! Нужно сделать\UAV1\UAV\Modelling Client\obj\Release\Modelling Client.pdb

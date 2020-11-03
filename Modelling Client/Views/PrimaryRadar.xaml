@@ -22,7 +22,7 @@
                 Background="LightGray"
                 ClipToBounds="True" 
                 RenderTransformOrigin="0.5,0.5"
-                SizeChanged="RadarSizeChanged" MouseWheel="RadarMouseWheel" MouseLeftButtonDown="RadarMouseFocusRadar">
+                SizeChanged="RadarSizeChanged" MouseWheel="RadarMouseWheel" MouseLeftButtonDown="RadarMouseBottonDown" MouseLeftButtonUp="RadarMouseBottonUp" PreviewMouseMove="RadarMouseFocusRadar">
         </Canvas>
     </Grid>
 </Window>

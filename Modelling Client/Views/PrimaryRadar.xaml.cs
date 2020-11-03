@@ -1,5 +1,4 @@
 ﻿using Modelling_Client.ViewModels;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Modelling_Client.Views;
 
 using Path = System.Windows.Shapes.Path;
 
@@ -26,8 +26,14 @@ namespace Modelling_Client.Views
         public int ScaleIndex = 4;
         public double ViewPointX = 0;
         public double ViewPointY = 0;
+        public double ViewPointX1 = 0;
+        public double ViewPointY1 = 0;
+        public double ViewPointX2 = 0;
+        public double ViewPointY2 = 0;
         List<Line> RadarGrid = new List<Line>();
         List<Double> Scales = new List<Double>();
+        private bool isBotton = false;
+        private PrimaryRadar RadarView;
 
         public double X0
         {
@@ -145,15 +151,46 @@ namespace Modelling_Client.Views
         }
 
         // добавить передвижение камеры
-        private void RadarMouseFocusRadar(object sender, MouseButtonEventArgs e)
+        private void RadarMouseBottonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.Handled == true)
+            isBotton = true;
+            Point MoveRadar1 = Mouse.GetPosition(Radar);
+            ViewPointX1 = MoveRadar1.X;
+            ViewPointY1 = MoveRadar1.Y;
+        }
+
+        private void RadarMouseBottonUp(object sender, MouseButtonEventArgs e)
+        {
+            isBotton = false;
+        }
+
+        private void RadarMouseFocusRadar(object sender, MouseEventArgs e)
+        {
+            if (isBotton == true)
             {
-                Point MoveRadar = Mouse.GetPosition(Radar);
-                ViewPointY = ViewPointY + MoveRadar.X;
-                ViewPointY = ViewPointY + MoveRadar.Y;
+                Point MoveRadar2 = Mouse.GetPosition(Radar);
+                ViewPointX2 = MoveRadar2.X;
+                ViewPointY2 = MoveRadar2.Y;
+
+                ViewPointX = ViewPointX1 - ViewPointX2;
+                ViewPointY = ViewPointY1 - ViewPointY2;
                 DisplayRadarGrid();
             };
+        }
+
+        // круг БПЛА //
+        private void circleUAV(double Radius, double X, double Y/*, double Color */ /* нужен ', double Scale' для регулирования размера ???*/)
+        {
+            var dot = new Ellipse { Width = 2 * /*uavs[i].Settings.*/Radius, Height = 2 * /*uavs[i].Settings.*/Radius/*, Fill = uavs[i].Color*/ };
+            dot.SetValue(PrimaryRadar.LeftProperty, /*uavs[i].Settings.*/X - /*uavs[i].Settings.*/Radius);
+            dot.SetValue(PrimaryRadar.TopProperty, /*uavs[i].Settings.*/Y - /*uavs[i].Settings.*/Radius);
+            Radar.Children.Add(dot);
+        }
+
+        // рисуем все БПЛА
+        private void DrawAllUAVS()
+        {
+
         }
     }
 }
